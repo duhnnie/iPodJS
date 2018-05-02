@@ -6,7 +6,7 @@ const env = process.env.WEBPACK_ENV;
 
 const basicConf = {
   mode: env === 'dev' ? 'development' : 'production',
-  entry: './src/iPod.js',
+  entry: './src/js/iPod.js',
   output: {
     filename: 'ipod.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,6 +18,7 @@ const basicConf = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
+        include: path.join(__dirname, 'src/js'),
         loader: 'babel-loader',
         options: {
           presets: ['env']
