@@ -6,7 +6,34 @@
         <script src="./ipod.js"></script>
         <script>
             let instance = new iPodJS.iPod({
-                id: 'myIDs'
+                playlists: [
+                    {
+                        name: "My first playlist",
+                        tracks: [
+                            {
+                                artist: "Radiohead",
+                                title: "Ful Stop"
+                            },
+                            {
+                                artist: "The Smashing Pumpkins",
+                                title: "Mayonaise"
+                            }
+                        ]
+                    },
+                    {
+                        name: "My second playlist",
+                        tracks: [
+                            {
+                                artist: "Café Tacvba",
+                                title: "Aviéntame"
+                            },
+                            {
+                                artist: "Nine Inch Nails",
+                                title: "The Collector"
+                            }
+                        ]
+                    }
+                ]
             });
 
             console.log(instance._id);
