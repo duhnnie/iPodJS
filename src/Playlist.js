@@ -7,9 +7,11 @@ export default class Playlist extends BaseElement {
     super(settings);
 
     settings = _.merge({
+      name: '[untitled playlist]',
       tracks: []
     }, settings);
 
+    this._name = settings.name;
     this._tracks = new Set();
 
     this.setTracks(settings.tracks);
