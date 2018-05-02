@@ -6,6 +6,10 @@ export default class BaseElement {
     return document.createElement(tag);
   }
 
+  static createText (text) {
+    return document.createTextNode(text);
+  }
+
   constructor (settings) {
     settings = _.merge({
       id: uuid()
