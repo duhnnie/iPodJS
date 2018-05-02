@@ -11,6 +11,7 @@ export default class BaseElement {
       id: uuid()
     }, settings);
 
+    this._elementTag = 'div';
     this._html = null;
 
     this.setId(settings.id);
@@ -26,7 +27,7 @@ export default class BaseElement {
 
   _createHTML () {
     if (!this._html) {
-      this._html = BaseElement.create('div');
+      this._html = BaseElement.create(this._elementTag);
 
       this.setId(this._id);
     }
