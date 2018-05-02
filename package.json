@@ -1,0 +1,21 @@
+{
+  "name": "ipod",
+  "version": "1.0.0",
+  "description": "A javascript iPod player",
+  "main": "index.html",
+  "scripts": {
+    "start": "WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "build": "WEBPACK_ENV=prod webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "duhnnie",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-merge": "^4.1.2"
+  }
+}
