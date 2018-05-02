@@ -13,6 +13,7 @@ export default class Playlist extends BaseElement {
 
     this._name = settings.name;
     this._tracks = new Set();
+    this._elementTag = 'ul';
 
     this.setTracks(settings.tracks);
   }
@@ -29,6 +30,10 @@ export default class Playlist extends BaseElement {
     }
 
     this._tracks.add(track);
+
+    if (this._html) {
+      this._html.appendChild(track.getHTML());
+    }
   }
 
   setTracks (tracks) {
@@ -39,5 +44,13 @@ export default class Playlist extends BaseElement {
     this.clearTracks();
 
     tracks.forEach(this.addTrack.bind(this));
+  }
+
+  _createHTML () {
+    if (!this._html) {
+      super._createHTML();
+
+      this.setTracks([...this._tracks]);
+    }
   }
 }
