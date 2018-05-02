@@ -12,5 +12,14 @@ export default class Track extends BaseElement {
 
     this._artist = settings.artist;
     this._title = settings.title;
+    this._elementTag = 'li';
+  }
+
+  _createHTML () {
+    if (!this._html) {
+      super._createHTML();
+
+      this._html.appendChild(BaseElement.createText(`${this._artist} - ${this._title}`));
+    }
   }
 }
