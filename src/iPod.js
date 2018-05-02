@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
+import Playlist from './Playlist';
 
 export class iPod extends BaseElement {
   constructor (settings) {
@@ -19,7 +20,13 @@ export class iPod extends BaseElement {
   }
 
   addPlaylist (playlist) {
+    if (typeof playlist !== 'object') {
+      throw new Error('addPlaylist(): The parameter must be an object or an instance of Playlist.');
+    } else if (!(playlist instanceof Playlist)) {
+      playlist = new Playlist(playlist);
+    }
 
+    this._playlists.add(playlist);
   }
 
   setPlaylists (playlists) {

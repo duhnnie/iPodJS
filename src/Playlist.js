@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
+import Track from './Track';
 
 export default class Playlist extends BaseElement {
-  constuctor (settings) {
+  constructor (settings) {
     super(settings);
 
     settings = _.merge({
@@ -15,10 +16,17 @@ export default class Playlist extends BaseElement {
   }
 
   clearTracks () {
-
+    this._tracks.clear();
   }
 
   addTrack (track) {
+    if (typeof track !== 'object') {
+      throw new Error('addTrack(): The parameter must be an object or an instance of Track');
+    } else if (!(track instanceof Track)) {
+      track = new Track(track);
+    }
+
+    this._tracks.add(track);
   }
 
   setTracks (tracks) {
