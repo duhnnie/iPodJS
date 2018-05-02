@@ -11,13 +11,24 @@ export default class BaseElement {
       id: uuid()
     }, settings);
 
-    this._id = settings.id;
     this._html = null;
+
+    this.setId(settings.id);
+  }
+
+  setId (id) {
+    this._id = id;
+
+    if (this._html) {
+      this._html.setAttribute('id', id);
+    }
   }
 
   _createHTML () {
     if (!this._html) {
       this._html = BaseElement.create('div');
+
+      this.setId(this._id);
     }
 
     return this;
@@ -25,7 +36,7 @@ export default class BaseElement {
 
   getHTML () {
     if (!this._html) {
-      this.createHTML();
+      this._createHTML();
     }
 
     return this._html;
