@@ -36,6 +36,6 @@ export class iPod extends BaseElement {
 
     this.clearPlaylists();
 
-    _.forEach(playlists, this.addPlaylist);
+    _.forEach(playlists, this.addPlaylist.bind(this));
   }
 }
