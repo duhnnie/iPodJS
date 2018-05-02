@@ -6,7 +6,7 @@ const env = process.env.WEBPACK_ENV;
 
 const basic_conf = {
     mode: env === 'dev' ? 'development' : 'production',
-    entry: './src/BaseElement.js',
+    entry: './src/iPod.js',
     output: {
         filename: 'ipod.js',
         path: path.resolve(__dirname, 'dist'),
@@ -33,6 +33,7 @@ if (env === 'dev') {
     specific_conf = {
         devServer: {
             contentBase: path.join(__dirname, 'dist'),
+            watchContentBase: true,
             compress: true,
             port: 8080
         },

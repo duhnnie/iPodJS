@@ -4,8 +4,15 @@
         <meta charset="utf-8"/>
         <title>iPod.JS</title>
         <script src="./ipod.js"></script>
+        <script>
+            let instance = new iPodJS.iPod({
+                id: 'myIDs'
+            });
+
+            console.log(instance._id);
+        </script>
     </head>
     <body>
-        Hello dude again again!
+        Hello dude!
     </body>
 </html>

@@ -1,10 +1,18 @@
-export class BaseElement {
+import _ from 'lodash';
+import uuid from 'uuid/v1';
+
+export default class BaseElement {
 
     static create(tag) {
         return document.createElement(tag);
     }
 
-    constructor() {
+    constructor(settings) {
+       settings =  _.merge({
+            id: uuid() 
+        }, settings);
+
+        this._id = settings.id;
         this._html = null;
     }
 
