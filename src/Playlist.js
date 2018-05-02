@@ -48,8 +48,12 @@ export default class Playlist extends BaseElement {
 
   _createHTML () {
     if (!this._html) {
+      const title = BaseElement.create('h2');
+
       super._createHTML();
 
+      title.appendChild(BaseElement.createText(this._name));
+      this._html.appendChild(title);
       this.setTracks([...this._tracks]);
     }
   }
