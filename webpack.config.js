@@ -31,6 +31,11 @@ let specific_conf;
 
 if (env === 'dev') {
     specific_conf = {
+        devServer: {
+            contentBase: path.join(__dirname, 'dist'),
+            compress: true,
+            port: 8080
+        },
         devtool: 'inline-source-map'
     };
 } else {
