@@ -7,7 +7,7 @@
     "start": "WEBPACK_ENV=dev webpack --progress --colors --watch",
     "server": "WEBPACK_ENV=dev webpack-dev-server --open 'Google Chrome'",
     "build": "WEBPACK_ENV=prod webpack",
-    "test": "semistandard"
+    "test": "semistandard --fix"
   },
   "author": "duhnnie",
   "license": "ISC",
