@@ -5,38 +5,43 @@
         <title>iPod.JS</title>
         <script src="./ipod.js"></script>
         <script>
-            let instance = new iPodJS.iPod({
-                playlists: [
-                    {
-                        name: "My first playlist",
-                        tracks: [
-                            {
-                                artist: "Radiohead",
-                                title: "Ful Stop"
-                            },
-                            {
-                                artist: "The Smashing Pumpkins",
-                                title: "Mayonaise"
-                            }
-                        ]
-                    },
-                    {
-                        name: "My second playlist",
-                        tracks: [
-                            {
-                                artist: "Café Tacvba",
-                                title: "Aviéntame"
-                            },
-                            {
-                                artist: "Nine Inch Nails",
-                                title: "The Collector"
-                            }
-                        ]
-                    }
-                ]
-            });
+            let instance;
 
-            console.log(instance._id);
+            window.addEventListener('DOMContentLoaded', () => {
+                instance = new iPodJS.iPod({
+                    playlists: [
+                        {
+                            name: "My first playlist",
+                            tracks: [
+                                {
+                                    artist: "Radiohead",
+                                    title: "Ful Stop"
+                                },
+                                {
+                                    artist: "The Smashing Pumpkins",
+                                    title: "Mayonaise"
+                                }
+                            ]
+                        },
+                        {
+                            name: "My second playlist",
+                            tracks: [
+                                {
+                                    artist: "Café Tacvba",
+                                    title: "Aviéntame"
+                                },
+                                {
+                                    artist: "Nine Inch Nails",
+                                    title: "The Collector"
+                                }
+                            ]
+                        }
+                    ]
+                });
+
+                console.log(instance._id);
+                document.body.appendChild(instance.getHTML());
+            });
         </script>
     </head>
     <body>
