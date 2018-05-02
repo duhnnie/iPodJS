@@ -15,7 +15,7 @@ export default class BaseElement {
     this._html = null;
   }
 
-  createHTML () {
+  _createHTML () {
     if (!this._html) {
       this._html = BaseElement.create('div');
     }
