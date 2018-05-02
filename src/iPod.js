@@ -27,6 +27,10 @@ export class iPod extends BaseElement {
     }
 
     this._playlists.add(playlist);
+
+    if (this._html) {
+      this._html.appendChild(playlist.getHTML());
+    }
   }
 
   setPlaylists (playlists) {
@@ -37,5 +41,15 @@ export class iPod extends BaseElement {
     this.clearPlaylists();
 
     _.forEach(playlists, this.addPlaylist.bind(this));
+  }
+
+  _createHTML () {
+    if (!this._html) {
+      super._createHTML();
+
+      this.setPlaylists([...this._playlists]);
+    }
+
+    return this;
   }
 }
