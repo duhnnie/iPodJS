@@ -17,6 +17,7 @@ export default class BaseElement {
 
     this._elementTag = 'div';
     this._html = null;
+    this._dom = {};
 
     this.setId(settings.id);
   }
