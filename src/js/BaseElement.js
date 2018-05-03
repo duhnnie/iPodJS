@@ -29,11 +29,19 @@ export default class BaseElement {
     }
   }
 
+  _getRootClasses () {
+    return [];
+  }
+
   _createHTML () {
     if (!this._html) {
       this._html = BaseElement.create(this._elementTag);
 
       this.setId(this._id);
+
+      this._getRootClasses().forEach((cssClass) => {
+        this._html.classList.add(cssClass);
+      });
     }
 
     return this;
