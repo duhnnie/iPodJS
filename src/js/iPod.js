@@ -49,8 +49,8 @@ export class iPod extends BaseElement {
       const screen = BaseElement.create('div');
       const topBar = BaseElement.create('div');
       const container = BaseElement.create('div');
-      const playlistPanel = BaseElement.create('div');
-      const tracklistPanel = BaseElement.create('div');
+      const playlistPanel = BaseElement.create('ul');
+      const tracklistPanel = BaseElement.create('ul');
       const playingPanel = BaseElement.create('div');
 
       super._createHTML();
@@ -58,8 +58,8 @@ export class iPod extends BaseElement {
       screen.classList.add(ipodStyle['screen']);
       topBar.classList.add(ipodStyle['top-bar']);
       container.classList.add(ipodStyle['container']);
-      playlistPanel.classList.add(ipodStyle['panel']);
-      tracklistPanel.classList.add(ipodStyle['panel']);
+      playlistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
+      tracklistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
       playingPanel.classList.add(ipodStyle['panel']);
 
       this._addToDOM(screen, null, 'screen');
