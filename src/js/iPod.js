@@ -30,7 +30,7 @@ export class iPod extends BaseElement {
     this._playlists.add(playlist);
 
     if (this._html) {
-      this._addToDOM(playlist.getHTML(), 'container');
+      this._addToDOM(playlist.getHTML(), 'playlistPanel');
     }
   }
 
@@ -49,16 +49,25 @@ export class iPod extends BaseElement {
       const screen = BaseElement.create('div');
       const topBar = BaseElement.create('div');
       const container = BaseElement.create('div');
+      const playlistPanel = BaseElement.create('div');
+      const tracklistPanel = BaseElement.create('div');
+      const playingPanel = BaseElement.create('div');
 
       super._createHTML();
 
       screen.classList.add(ipodStyle['screen']);
       topBar.classList.add(ipodStyle['top-bar']);
       container.classList.add(ipodStyle['container']);
+      playlistPanel.classList.add(ipodStyle['panel']);
+      tracklistPanel.classList.add(ipodStyle['panel']);
+      playingPanel.classList.add(ipodStyle['panel']);
 
       this._addToDOM(screen, null, 'screen');
       this._addToDOM(topBar, 'screen', 'topBar');
       this._addToDOM(container, 'screen', 'container');
+      this._addToDOM(playlistPanel, 'container', 'playlistPanel');
+      this._addToDOM(tracklistPanel, 'container', 'tracklistPanel');
+      this._addToDOM(playingPanel, 'container', 'playingPanel');
 
       this.setPlaylists([...this._playlists]);
     }
