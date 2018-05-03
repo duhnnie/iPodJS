@@ -4,7 +4,7 @@
   "description": "A javascript iPod player",
   "main": "index.html",
   "scripts": {
-    "start": "WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "start": "WEBPACK_ENV=dev webpack --progress --colors && open dist/index.html",
     "server": "WEBPACK_ENV=dev webpack-dev-server --open 'Google Chrome'",
     "build": "WEBPACK_ENV=prod webpack",
     "test": "semistandard --fix"
@@ -15,6 +15,8 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "semistandard": "^12.0.1",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14",

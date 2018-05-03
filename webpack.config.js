@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const env = process.env.WEBPACK_ENV;
 
 const basicConf = {
@@ -23,9 +24,17 @@ const basicConf = {
         options: {
           presets: ['env']
         }
+      },
+      {
+        test: /\.css$/,
+        include: path.join(__dirname, 'src/css'),
+        use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[path][name]__[local]___[hash:base64:5]')
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('ipodjs.css')
+  ]
 };
 
 let specificConf;
