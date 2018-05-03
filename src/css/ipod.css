@@ -6,3 +6,26 @@
   position: relative;
   overflow: hidden;
 }
+
+.top-bar {
+  height: 20px;
+  background-image: linear-gradient(to bottom, #FFFFFF 30%, #ACAFB1 82%, #85898C 100%);
+  border-color: 1px solid #6F7072;
+  border-width: 0 0 1px 0;
+  line-height: 20px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 200%; 
+  height: 100%; 
+  position: relative;
+  padding-top: 20px;
+  box-sizing: border-box;
+}
+
