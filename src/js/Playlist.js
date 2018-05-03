@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Track from './Track';
+import playslistStyle from '../css/playlist.css';
 
 export default class Playlist extends BaseElement {
   constructor (settings) {
@@ -13,7 +14,7 @@ export default class Playlist extends BaseElement {
 
     this._name = settings.name;
     this._tracks = new Set();
-    this._elementTag = 'ul';
+    this._elementTag = 'li';
 
     this.setTracks(settings.tracks);
   }
@@ -30,10 +31,6 @@ export default class Playlist extends BaseElement {
     }
 
     this._tracks.add(track);
-
-    if (this._html) {
-      this._html.appendChild(track.getHTML());
-    }
   }
 
   setTracks (tracks) {
@@ -46,15 +43,28 @@ export default class Playlist extends BaseElement {
     tracks.forEach(this.addTrack.bind(this));
   }
 
+  _getRootClasses () {
+    return [playslistStyle['playlist']];
+  }
+
   _createHTML () {
     if (!this._html) {
-      const title = BaseElement.create('h2');
+      const link = BaseElement.create('a');
+      const name = BaseElement.create('div');
+      const count = BaseElement.create('span');
 
       super._createHTML();
 
-      title.appendChild(BaseElement.createText(this._name));
-      this._html.appendChild(title);
-      this.setTracks([...this._tracks]);
+      link.setAttribute('href', '#');
+      link.classList.add(playslistStyle['link']);
+      name.classList.add(playslistStyle['name']);
+      count.classList.add(playslistStyle['count']);
+
+      this._addToDOM(BaseElement.createText(this._name), name);
+      this._addToDOM(BaseElement.createText(`${this._tracks.size} Songs`), count);
+      this._addToDOM(link, null, 'link');
+      this._addToDOM(name, 'link');
+      this._addToDOM(count, 'link');
     }
   }
 }
