@@ -53,7 +53,7 @@ export class iPod extends BaseElement {
       screen.classList.add(ipodStyle['screen']);
       this._html.appendChild(screen);
 
-      this._dom.screen = screen;
+      this._addToDOM(screen, null, 'screen');
 
       this.setPlaylists([...this._playlists]);
     }

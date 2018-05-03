@@ -30,6 +30,39 @@ export default class BaseElement {
     }
   }
 
+  _addToDOM (child, parent = null, key = null) {
+    if (!parent) {
+      parent = this._html;
+    } else if (typeof parent === 'string') {
+      parent = this._dom[parent];
+    } else if (!(parent instanceof window.HTMLElement)) {
+      throw new Error('_addToDOM(): The second parameter must be a string, object or null.');
+    }
+
+    parent = parent || this._html;
+
+    parent.appendChild(child);
+
+    if (typeof key === 'string') {
+      this._dom[key] = child;
+    }
+  }
+
+  _removeFromDOM (keyOrChild) {
+    if (typeof keyOrChild === 'string') {
+      this._dom[keyOrChild].remove();
+      delete this._dom[keyOrChild];
+    } else if (keyOrChild instanceof window.HTMLElement) {
+      keyOrChild.remove();
+    } else {
+      throw new Error('_removeFromDOM(): The parameter must be a string or a HTMLElement');
+    }
+  }
+
+  _getFromDOM (key) {
+    return this._dom[key] || null;
+  }
+
   _getRootClasses () {
     return [];
   }
