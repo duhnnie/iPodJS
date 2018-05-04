@@ -1,0 +1,84 @@
+.overflow {
+  overflow: hidden;
+}
+
+.color-gray {
+  color: #5D5D5D;
+}
+
+.text-small {
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.container {
+  margin: 20px 16px 0 16px;
+  display: flex;
+}
+
+.timebox {
+  text-align: center;
+  padding: 35px 0 0 0;
+  font-family: Helvetica;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+.artwork {
+  width: 130px;
+  height: 130px;
+  background-image: url('https://upload.wikimedia.org/wikipedia/en/a/aa/NOFX_-_Don%27t_Call_Me_White_cover.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.track-titles {
+  composes: overflow;
+  margin-left: 12px;
+  height: 100%;
+  font-weight: bold;
+}
+
+.track-titles-list {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0 0 0;
+}
+
+.track-titles-list-item {
+  composes: overflow;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.track-titles-list-item-big {
+  composes: track-titles-list-item;
+  font-size: 16px;
+  margin: 0 0 0.4em;
+}
+
+.track-titles-list-item-small {
+  composes: track-titles-list-item text-small color-gray;
+}
+
+.track-titles-list-item-index {
+  composes: track-titles-list-item text-small;
+}
+
+.progress-container {
+  display: inline-block;
+  width: 203px;
+  height: 14px;
+  background-image: linear-gradient(to bottom, #FFFFFF 35%, #E9E9E9 48%, #E9E9E9 55%, #FFFFFF 100%);
+  border: 1px solid #E2E2E2;
+  vertical-align: middle;
+  margin: 0 .5em;
+}
+
+.progress-bar {
+  width: 31%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, #84A1DC 0%, #70AAFF 17%, #70AAFF 35%, #3C9CF4 47%, #3C9CF4 55%, #58C8F5 85%);
+}

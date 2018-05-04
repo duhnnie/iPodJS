@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
+import playviewStyles from '../css/playview.css';
 
 export default class Playview extends BaseElement {
   constructor (settings) {
@@ -9,7 +10,7 @@ export default class Playview extends BaseElement {
       artist: '[unknown artist]',
       title: '[unknown]',
       album: '[unknown album]',
-      cover: null,
+      artwork: null,
       rating: 0,
       index: null
     }, settings);
@@ -21,17 +22,26 @@ export default class Playview extends BaseElement {
     this._artist = info.artist;
     this._title = info.title;
     this._album = info.album;
-    this._cover = info.cover;
+    this._artwork = info.artwork;
     this._rating = info.rating;
     this._index = info.index;
 
     if (this._html) {
-      this._addToDOM(BaseElement.createText(info.artist), this._getFromDOM('artist'));
-      this._addToDOM(BaseElement.createText(info.title), this._getFromDOM('title'));
-      this._getFromDOM('album').setAttribute('src', info.album);
-      this._addToDOM(BaseElement.createText(info.cover), this._getFromDOM('cover'));
-      this._addToDOM(BaseElement.createText(info.rating), this._getFromDOM('rating'));
-      this._addToDOM(BaseElement.createText(info.index), this._getFromDOM('index'));
+      let ratingText = '';
+
+      for (let i = 0; i < info.rating; i++) {
+        ratingText += '★';
+      }
+
+      this._addToDOM(BaseElement.createText(info.artist), 'artist');
+      this._addToDOM(BaseElement.createText(info.title), 'title');
+      this._getFromDOM('artwork').style.backgroundImage = `url(${info.artwork})`;
+      this._addToDOM(BaseElement.createText(info.album), 'album');
+      this._addToDOM(BaseElement.createText(ratingText), 'rating');
+      this._addToDOM(BaseElement.createText(info.index), 'index');
+
+      this._addToDOM(BaseElement.createText('00:00'), 'elapsedTime');
+      this._addToDOM(BaseElement.createText('00:00'), 'remainingTime');
     }
   }
 
@@ -39,27 +49,29 @@ export default class Playview extends BaseElement {
     if (!this._html) {
       super._createHTML();
 
-      this._addToDOM(BaseElement.create('div'), null, 'trackInfoContainer');
-      this._addToDOM(BaseElement.create('img'), 'trackInfoContainer', 'cover');
-      this._addToDOM(BaseElement.create('div'), 'trackInfoContainer', 'trackTitles');
-      this._addToDOM(BaseElement.create('ul'), 'trackTitles', 'trackTitlesList');
-      this._addToDOM(BaseElement.create('li'), 'trackTitlesList', 'title');
-      this._addToDOM(BaseElement.create('li'), 'trackTitlesList', 'artist');
-      this._addToDOM(BaseElement.create('li'), 'trackTitlesList', 'album');
-      this._addToDOM(BaseElement.create('li'), 'trackTitlesList', 'rating');
-      this._addToDOM(BaseElement.create('li'), 'trackTitlesList', 'index');
+      this._addToDOM(BaseElement.create('div', playviewStyles['container']), null, 'trackInfoContainer');
+      this._addToDOM(BaseElement.create('img', playviewStyles['artwork']), 'trackInfoContainer', 'artwork');
+      this._addToDOM(BaseElement.create('div', playviewStyles['track-titles']), 'trackInfoContainer', 'trackTitles');
+      this._addToDOM(BaseElement.create('ul', playviewStyles['track-titles-list']), 'trackTitles', 'trackTitlesList');
+      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-big']), 'trackTitlesList', 'title');
+      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-small']), 'trackTitlesList', 'artist');
+      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-small']), 'trackTitlesList', 'album');
+      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item']), 'trackTitlesList', 'rating');
+      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-index']), 'trackTitlesList', 'index');
 
-      this._addToDOM(BaseElement.create('div'), null, 'timebox');
+      this._getFromDOM('artwork').setAttribute('img', './img/pixel.gif');
+
+      this._addToDOM(BaseElement.create('div', playviewStyles['timebox']), null, 'timebox');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'elapsedTime');
+      this._addToDOM(BaseElement.create('div', playviewStyles['progress-container']), 'timebox', 'progressBarContainer');
+      this._addToDOM(BaseElement.create('div', playviewStyles['progress-bar']), 'progressBarContainer', 'progressBar');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'remainingTime');
-      this._addToDOM(BaseElement.create('div'), 'timebox', 'progressBarContainer');
-      this._addToDOM(BaseElement.create('progress'), 'progressBarContainer', 'progressBar');
 
       this.setInfo({
         artist: this._artist,
         title: this._title,
         album: this._album,
-        cover: this._cover,
+        artwork: this._artwork,
         rating: this._rating,
         index: this._index
       });
