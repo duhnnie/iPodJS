@@ -5,7 +5,7 @@ export default class BaseElement {
   static create (tag, cssClass = null, id = null) {
     const elem = document.createElement(tag);
 
-    cssClass = _.isArray(cssClass) ? cssClass : (cssClass && [cssClass]) || [];
+    cssClass = _.isArray(cssClass) ? cssClass : (cssClass && cssClass.split(' ')) || [];
 
     if (id) {
       elem.setAttribute('id', id);
