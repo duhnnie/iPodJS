@@ -37,6 +37,14 @@ export class iPod extends BaseElement {
     Utils.animate(this._getFromDOM('container'), 'left', '-100%');
   }
 
+  _onSelectTrackHandler (track) {
+    console.log('to play:', track);
+
+    this._playView.setInfo(track.getInfo());
+
+    Utils.animate(this._getFromDOM('container'), 'left', '-200%');
+  }
+
   addPlaylist (playlist) {
     if (typeof playlist !== 'object') {
       throw new Error('addPlaylist(): The parameter must be an object or an instance of Playlist.');
@@ -45,6 +53,7 @@ export class iPod extends BaseElement {
     }
 
     playlist.setOnClick(this._onSelectPlaylist.bind(this));
+    playlist.setOnSelectTrack(this._onSelectTrackHandler.bind(this));
 
     this._playlists.add(playlist);
 
