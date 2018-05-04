@@ -19,12 +19,12 @@
   white-space: nowrap;
 }
 
-.name {
+.title {
   font-weight: bold;
   line-height: 1em;
 }
 
-.count {
+.subtitle {
   font-weight: lighter;
   font-size: 0.75em;
   line-height: 0.5em;

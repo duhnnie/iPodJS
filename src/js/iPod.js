@@ -20,12 +20,36 @@ export class iPod extends BaseElement {
     this._playlists.clear();
   }
 
+  _setTracklist (playlist) {
+    const tracks = playlist.getTracks();
+
+    tracks.forEach((track) => {
+      this._addToDOM(track.getHTML(), 'tracklistPanel');
+    });
+  }
+
+  _onSelectPlaylist (playlist) {
+    let left = 0;
+
+    this._setTracklist(playlist);
+
+    const intervalRef = window.setInterval(() => {
+      this._getFromDOM('container').style.left = `${left}%`;
+      left--;
+      if (left < -100) {
+        window.clearInterval(intervalRef);
+      }
+    }, 1);
+  }
+
   addPlaylist (playlist) {
     if (typeof playlist !== 'object') {
       throw new Error('addPlaylist(): The parameter must be an object or an instance of Playlist.');
     } else if (!(playlist instanceof Playlist)) {
       playlist = new Playlist(playlist);
     }
+
+    playlist.setOnClick(this._onSelectPlaylist.bind(this));
 
     this._playlists.add(playlist);
 

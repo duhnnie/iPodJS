@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
+import ListItem from './ListItem';
 
-export default class Track extends BaseElement {
+export default class Track extends ListItem {
   constructor (settings) {
     super(settings);
 
@@ -12,14 +13,13 @@ export default class Track extends BaseElement {
 
     this._artist = settings.artist;
     this._title = settings.title;
-    this._elementTag = 'li';
   }
 
   _createHTML () {
     if (!this._html) {
       super._createHTML();
-
-      this._html.appendChild(BaseElement.createText(`${this._artist} - ${this._title}`));
+      this._addToDOM(BaseElement.createText(this._artist), 'title');
+      this._addToDOM(BaseElement.createText(this._title), 'subtitle');
     }
   }
 }

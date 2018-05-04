@@ -67,6 +67,8 @@ export default class BaseElement {
     return [];
   }
 
+  _addEventListeners () {}
+
   _createHTML () {
     if (!this._html) {
       this._html = BaseElement.create(this._elementTag);
@@ -76,6 +78,8 @@ export default class BaseElement {
       this._getRootClasses().forEach((cssClass) => {
         this._html.classList.add(cssClass);
       });
+
+      this._addEventListeners();
     }
 
     return this;
