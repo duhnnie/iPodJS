@@ -22,7 +22,7 @@
 }
 
 .container {
-  width: 200%; 
+  width: 300%; 
   height: 100%; 
   position: relative;
   padding-top: 20px;
@@ -30,7 +30,7 @@
 }
 
 .panel {
-  width: 50%; 
+  width: 33.333%; 
   height: 100%; 
   display: inline-block; 
   float: left;
