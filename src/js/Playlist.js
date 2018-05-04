@@ -41,7 +41,9 @@ export default class Playlist extends ListItem {
       track = new Track(track);
     }
 
+    track.setParentPlaylist(this);
     track.setOnClick(this._onSelectTrackHandler.bind(this));
+    track.setIndex(this._tracks.size);
 
     this._tracks.add(track);
   }

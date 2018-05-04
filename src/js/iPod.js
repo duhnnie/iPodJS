@@ -38,9 +38,11 @@ export class iPod extends BaseElement {
   }
 
   _onSelectTrackHandler (track) {
-    console.log('to play:', track);
+    const trackInfo = track.getInfo();
 
-    this._playView.setInfo(track.getInfo());
+    trackInfo.index = `${trackInfo.index + 1} of ${track.getParentPlaylist().getTracks().length}`;
+
+    this._playView.setInfo(trackInfo);
 
     Utils.animate(this._getFromDOM('container'), 'left', '-200%');
   }

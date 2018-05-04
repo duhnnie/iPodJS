@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
 import ListItem from './ListItem';
+import Playlist from './Playlist';
 
 export default class Track extends ListItem {
   constructor (settings) {
@@ -11,7 +12,9 @@ export default class Track extends ListItem {
       title: '[untitled]',
       album: '[unknown album]',
       artwork: null,
-      rating: 0
+      index: null,
+      rating: 0,
+      parentPlaylist: null
     }, settings);
 
     this._artist = settings.artist;
@@ -19,6 +22,26 @@ export default class Track extends ListItem {
     this._album = settings.album;
     this._artwork = settings.artwork;
     this._rating = settings.rating;
+    this._parentPlaylist = settings.parentPlaylist;
+
+    this.setIndex(settings.index);
+    this.setParentPlaylist(settings.parentPlaylist);
+  }
+
+  setParentPlaylist (playlist) {
+    if (!(playlist instanceof Playlist || playlist === null)) {
+      throw new Error('setParentPlaylist(): The parameter must be an instance of Playlist or null.');
+    }
+
+    this._parentPlaylist = playlist;
+  } 
+
+  getParentPlaylist () {
+    return this._parentPlaylist;
+  }
+
+  setIndex (index) {
+    this._index = index;
   }
 
   getInfo () {
@@ -27,6 +50,7 @@ export default class Track extends ListItem {
       title: this._title,
       album: this._album,
       artwork: this._artwork,
+      index: this._index,
       rating: this._rating
     };
   }
