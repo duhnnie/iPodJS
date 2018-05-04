@@ -3,6 +3,7 @@ import BaseElement from './BaseElement';
 import Playlist from './Playlist';
 import Utils from './Utils';
 import ipodStyle from '../css/ipod.css';
+import PlayView from './PlayView';
 
 export class iPod extends BaseElement {
   constructor (settings) {
@@ -13,6 +14,7 @@ export class iPod extends BaseElement {
     }, settings);
 
     this._playlists = new Set();
+    this._playView = new PlayView();
 
     this.setPlaylists(settings.playlists);
   }
@@ -85,6 +87,7 @@ export class iPod extends BaseElement {
       this._addToDOM(playlistPanel, 'container', 'playlistPanel');
       this._addToDOM(tracklistPanel, 'container', 'tracklistPanel');
       this._addToDOM(playingPanel, 'container', 'playingPanel');
+      this._addToDOM(this._playView.getHTML(), 'playingPanel');
 
       this.setPlaylists([...this._playlists]);
     }
