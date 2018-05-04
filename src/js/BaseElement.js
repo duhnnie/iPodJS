@@ -40,7 +40,7 @@ export default class BaseElement {
     }
   }
 
-  _addToDOM (child, parent = null, key = null) {
+  _resolveParent (parent) {
     if (!parent) {
       parent = this._html;
     } else if (typeof parent === 'string') {
@@ -51,11 +51,26 @@ export default class BaseElement {
 
     parent = parent || this._html;
 
+    return parent;
+  }
+
+  _addToDOM (child, parent = null, key = null) {
+    parent = this._resolveParent(parent);
     parent.appendChild(child);
 
     if (typeof key === 'string') {
       this._dom[key] = child;
     }
+  }
+
+  _setToDOM (child, parent = null, key = null) {
+    parent = this._resolveParent(parent);
+
+    while (parent.childNodes.length) {
+      parent.removeChild(parent.childNodes[0]);
+    }
+
+    this._addToDOM(child, parent, key);
   }
 
   _removeFromDOM (keyOrChild) {
