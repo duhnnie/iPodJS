@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Playlist from './Playlist';
+import Utils from './Utils';
 import ipodStyle from '../css/ipod.css';
 
 export class iPod extends BaseElement {
@@ -29,17 +30,9 @@ export class iPod extends BaseElement {
   }
 
   _onSelectPlaylist (playlist) {
-    let left = 0;
-
     this._setTracklist(playlist);
 
-    const intervalRef = window.setInterval(() => {
-      this._getFromDOM('container').style.left = `${left}%`;
-      left--;
-      if (left < -100) {
-        window.clearInterval(intervalRef);
-      }
-    }, 1);
+    Utils.animate(this._getFromDOM('container'), 'left', '-100%');
   }
 
   addPlaylist (playlist) {
