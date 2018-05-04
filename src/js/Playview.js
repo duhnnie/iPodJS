@@ -33,15 +33,15 @@ export default class Playview extends BaseElement {
         ratingText += '★';
       }
 
-      this._addToDOM(BaseElement.createText(info.artist), 'artist');
-      this._addToDOM(BaseElement.createText(info.title), 'title');
+      this._setToDOM(BaseElement.createText(info.artist), 'artist');
+      this._setToDOM(BaseElement.createText(info.title), 'title');
       this._getFromDOM('artwork').style.backgroundImage = `url(${info.artwork})`;
-      this._addToDOM(BaseElement.createText(info.album), 'album');
-      this._addToDOM(BaseElement.createText(ratingText), 'rating');
-      this._addToDOM(BaseElement.createText(info.index), 'index');
+      this._setToDOM(BaseElement.createText(info.album), 'album');
+      this._setToDOM(BaseElement.createText(ratingText), 'rating');
+      this._setToDOM(BaseElement.createText(info.index), 'index');
 
-      this._addToDOM(BaseElement.createText('00:00'), 'elapsedTime');
-      this._addToDOM(BaseElement.createText('00:00'), 'remainingTime');
+      this._setToDOM(BaseElement.createText('00:00'), 'elapsedTime');
+      this._setToDOM(BaseElement.createText('00:00'), 'remainingTime');
     }
   }
 
