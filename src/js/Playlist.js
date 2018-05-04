@@ -9,21 +9,29 @@ export default class Playlist extends ListItem {
 
     settings = _.merge({
       name: '[untitled playlist]',
-      tracks: []
+      tracks: [],
+      onSelectTrack: null
     }, settings);
 
     this._name = settings.name;
     this._tracks = new Set();
 
     this.setTracks(settings.tracks);
+    this.setOnSelectTrack(settings.onSelectTrack);
+  }
+
+  setOnSelectTrack (callback) {
+    if (callback === null || typeof callback === 'function') {
+      this._onSelectTrack = callback;
+    }
   }
 
   clearTracks () {
     this._tracks.clear();
   }
 
-  _onSelectTrack (track) {
-    console.log('selected track:', track);
+  _onSelectTrackHandler (track) {
+    return this._onSelectTrack && this._onSelectTrack(track);
   }
 
   addTrack (track) {
@@ -33,7 +41,7 @@ export default class Playlist extends ListItem {
       track = new Track(track);
     }
 
-    track.setOnClick(this._onSelectTrack.bind(this));
+    track.setOnClick(this._onSelectTrackHandler.bind(this));
 
     this._tracks.add(track);
   }
