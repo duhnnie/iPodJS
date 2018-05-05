@@ -47,6 +47,8 @@ export class iPod extends BaseElement {
   _setTracklist (playlist) {
     const tracks = playlist.getTracks();
 
+    this._clear('tracklistPanel');
+
     tracks.forEach((track) => {
       this._addToDOM(track.getHTML(), 'tracklistPanel');
     });

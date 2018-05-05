@@ -40,22 +40,22 @@ export default class BaseElement {
     }
   }
 
-  _resolveParent (parent) {
-    if (!parent) {
-      parent = this._html;
-    } else if (typeof parent === 'string') {
-      parent = this._dom[parent];
-    } else if (!(parent instanceof window.HTMLElement)) {
+  _resolveElement (element) {
+    if (!element) {
+      element = this._html;
+    } else if (typeof element === 'string') {
+      element = this._dom[element];
+    } else if (!(element instanceof window.HTMLElement)) {
       throw new Error('_addToDOM(): The second parameter must be a string, object or null.');
     }
 
-    parent = parent || this._html;
+    element = element || this._html;
 
-    return parent;
+    return element;
   }
 
   _addToDOM (child, parent = null, key = null) {
-    parent = this._resolveParent(parent);
+    parent = this._resolveElement(parent);
     parent.appendChild(child);
 
     if (typeof key === 'string') {
@@ -63,12 +63,16 @@ export default class BaseElement {
     }
   }
 
-  _setToDOM (child, parent = null, key = null) {
-    parent = this._resolveParent(parent);
+  _clear (element) {
+    element = this._resolveElement(element);
 
-    while (parent.childNodes.length) {
-      parent.removeChild(parent.childNodes[0]);
+    while (element.childNodes.length) {
+      element.removeChild(element.childNodes[0]);
     }
+  }
+
+  _setToDOM (child, parent = null, key = null) {
+    this._clear(parent);
 
     this._addToDOM(child, parent, key);
   }
