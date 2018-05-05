@@ -20,26 +20,20 @@ export default class Playview extends BaseElement {
     this.setTrack(settings.track);
   }
 
-  _showNotAudioText () {
-    this._getFromDOM('noAudioText').style.display = '';
-  }
-
-  _hideNotAudioText () {
-    this._getFromDOM('noAudioText').style.display = 'none';
+  _showTrackNotification (text) {
+    this._getFromDOM('trackNotification').data = text;
   }
 
   play () {
-    if (!this._track) {
-      return;
-    }
+    if (this._track) {
+      const audioSource = this._track.getAudio() || '';
 
-    const audioSource = this._track.getAudio() || '';
+      this._audio.setAttribute('src', audioSource || '');
+      this._isPlaying = true;
 
-    this._audio.setAttribute('src', audioSource || '');
-    this._isPlaying = true;
-
-    if (audioSource) {
-      this._audio.play();
+      if (audioSource) {
+        this._audio.play();
+      }
     }
   }
 
@@ -80,11 +74,7 @@ export default class Playview extends BaseElement {
       this._setToDOM(BaseElement.createText(ratingText), 'rating');
       this._setToDOM(BaseElement.createText(info.index), 'index');
 
-      if (!info.audio) {
-        this._showNotAudioText();
-      } else {
-        this._hideNotAudioText();
-      }
+      this._showTrackNotification(!info.audio ? '[not available]' : '');
 
       this._updatePlaybackTime(0, 0);
     }
@@ -119,6 +109,9 @@ export default class Playview extends BaseElement {
     this._audio.addEventListener('ended', () => {
       return this._onEnded && this._onEnded(this._track);
     });
+
+    this._audio.addEventListener('loadstart', () => this._showTrackNotification('loading...'));
+    this._audio.addEventListener('loadeddata', () => this._showTrackNotification(''));
   }
 
   _createHTML () {
@@ -140,8 +133,7 @@ export default class Playview extends BaseElement {
       this._addToDOM(BaseElement.create('div', playviewStyles['timebox']), null, 'timebox');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'elapsedTime');
       this._addToDOM(BaseElement.create('div', playviewStyles['progress-container']), 'timebox', 'progressBarContainer');
-      this._addToDOM(BaseElement.create('span'), 'progressBarContainer', 'noAudioText');
-      this._addToDOM(BaseElement.createText('[Not Available]'), 'noAudioText');
+      this._addToDOM(BaseElement.createText(''), 'progressBarContainer', 'trackNotification');
       this._addToDOM(BaseElement.create('div', playviewStyles['progress-bar']), 'progressBarContainer', 'progressBar');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'remainingTime');
 
