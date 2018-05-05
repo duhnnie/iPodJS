@@ -8,21 +8,39 @@ export default class Playview extends BaseElement {
     super(settings);
 
     settings = _.merge({
-      onEnded: null
+      onEnded: null,
+      track: null
     }, settings);
 
     this._audio = new window.Audio();
     this._onEnded = settings.onEnded;
     this._isPlaying = false;
+    this._timeoutRef = null;
+
+    this.setTrack(settings.track);
   }
 
-  play (audioSource) {
-    if (audioSource) {
-      this._audio.setAttribute('src', audioSource);
+  _showNotAudioText () {
+    this._getFromDOM('noAudioText').style.display = '';
+  }
+
+  _hideNotAudioText () {
+    this._getFromDOM('noAudioText').style.display = 'none';
+  }
+
+  play () {
+    if (!this._track) {
+      return;
     }
 
+    const audioSource = this._track.getAudio() || '';
+
+    this._audio.setAttribute('src', audioSource || '');
     this._isPlaying = true;
-    this._audio.play();
+
+    if (audioSource) {
+      this._audio.play();
+    }
   }
 
   stop () {
@@ -33,17 +51,20 @@ export default class Playview extends BaseElement {
   setTrack (track) {
     let info;
 
-    this.stop();
+    this._track = track;
 
     if (track) {
       info = track.getInfo();
       info.index = `${info.index + 1} of ${track.getParentPlaylist().getTracks().length}`;
-      this.play(info.audio);
+
+      if (this._isPlaying) {
+        this.stop();
+        this.play();
+      }
     } else {
       info = {};
+      this.stop();
     }
-
-    this._track = track;
 
     if (this._html) {
       let ratingText = '';
@@ -54,13 +75,21 @@ export default class Playview extends BaseElement {
 
       this._setToDOM(BaseElement.createText(info.artist), 'artist');
       this._setToDOM(BaseElement.createText(info.title), 'title');
-      this._getFromDOM('artwork').style.backgroundImage = `url(${info.artwork})`;
+      this._getFromDOM('artwork').style.backgroundImage = `url(${info.artwork || ''})`;
       this._setToDOM(BaseElement.createText(info.album), 'album');
       this._setToDOM(BaseElement.createText(ratingText), 'rating');
       this._setToDOM(BaseElement.createText(info.index), 'index');
 
+      if (!info.audio) {
+        this._showNotAudioText();
+      } else {
+        this._hideNotAudioText();
+      }
+
       this._updatePlaybackTime(0, 0);
     }
+
+    return this;
   }
 
   isPlaying () {
@@ -111,6 +140,8 @@ export default class Playview extends BaseElement {
       this._addToDOM(BaseElement.create('div', playviewStyles['timebox']), null, 'timebox');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'elapsedTime');
       this._addToDOM(BaseElement.create('div', playviewStyles['progress-container']), 'timebox', 'progressBarContainer');
+      this._addToDOM(BaseElement.create('span'), 'progressBarContainer', 'noAudioText');
+      this._addToDOM(BaseElement.createText('[Not Available]'), 'noAudioText');
       this._addToDOM(BaseElement.create('div', playviewStyles['progress-bar']), 'progressBarContainer', 'progressBar');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'remainingTime');
 

@@ -58,9 +58,13 @@ export class iPod extends BaseElement {
     this.play(track);
   }
 
+  _setTrack (track) {
+    this._playView.setTrack(track);
+  }
+
   play (track) {
     if (track) {
-      this._playView.setTrack(track);
+      this._playView.setTrack(track).play();
       Utils.animate(this._getFromDOM('container'), 'left', '-200%');
     } else {
       if (this._playView.isPlaying()) {
@@ -71,26 +75,26 @@ export class iPod extends BaseElement {
     }
   }
 
-  prev () {
+  _moveOnPlaylist (movement) {
     const currentTrack = this._playView.getTrack();
-    const prevTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index - 1);
 
-    this._playView.setTrack(prevTrack);
+    if (currentTrack) {
+      const newTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + movement);
 
-    if (!prevTrack) {
-      this.back();
+      if (!newTrack && this._playView.isPlaying()) {
+        this.back();
+      }
+
+      this._setTrack(newTrack);
     }
   }
 
+  prev () {
+    this._moveOnPlaylist(-1);
+  }
+
   next () {
-    const currentTrack = this._playView.getTrack();
-    const nextTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + 1);
-
-    this._playView.setTrack(nextTrack);
-
-    if (!nextTrack) {
-      this.back();
-    }
+    this._moveOnPlaylist(1);
   }
 
   addPlaylist (playlist) {

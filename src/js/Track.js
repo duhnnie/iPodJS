@@ -46,6 +46,10 @@ export default class Track extends ListItem {
     this._index = index;
   }
 
+  getAudio () {
+    return this._audio;
+  }
+
   getInfo () {
     return {
       artist: this._artist,
