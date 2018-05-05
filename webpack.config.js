@@ -14,6 +14,9 @@ const basicConf = {
     library: 'iPodJS',
     libraryTarget: 'var'
   },
+  externals: {
+    lodash: '_'
+  },
   module: {
     rules: [
       {
