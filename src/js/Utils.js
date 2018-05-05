@@ -8,7 +8,7 @@ export default {
       if (currentValue === finalValueNum) {
         window.clearInterval(intervalRef);
         return callback && callback();
-      } else if (currentValue > finalValue) {
+      } else if (currentValue < finalValueNum) {
         element.style[property] = `${++currentValue}${unit}`;
       } else {
         element.style[property] = `${--currentValue}${unit}`;
