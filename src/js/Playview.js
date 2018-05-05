@@ -106,7 +106,7 @@ export default class Playview extends BaseElement {
 
     this._setToDOM(BaseElement.createText(`${Utils.secondsToTime(elapsedSeconds)}`), 'elapsedTime');
     this._getFromDOM('progressBar').style.width = `${currentTime / duration * 100 || 0}%`;
-    this._setToDOM(BaseElement.createText(`-${Utils.secondsToTime(remainingSeconds)}`), 'remainingTime');
+    this._setToDOM(BaseElement.createText(`-${Utils.secondsToTime(remainingSeconds || 0)}`), 'remainingTime');
   }
 
   _addEventListeners () {
