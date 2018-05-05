@@ -13,6 +13,7 @@ export default class Playview extends BaseElement {
 
     this._audio = new window.Audio();
     this._onEnded = settings.onEnded;
+    this._isPlaying = false;
   }
 
   play (audioSource) {
@@ -20,10 +21,12 @@ export default class Playview extends BaseElement {
       this._audio.setAttribute('src', audioSource);
     }
 
+    this._isPlaying = true;
     this._audio.play();
   }
 
   stop () {
+    this._isPlaying = false;
     this._audio.pause();
   }
 
@@ -58,6 +61,10 @@ export default class Playview extends BaseElement {
 
       this._updatePlaybackTime(0, 0);
     }
+  }
+
+  isPlaying () {
+    return this._isPlaying;
   }
 
   getTrack () {

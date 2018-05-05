@@ -59,8 +59,17 @@ export class iPod extends BaseElement {
   }
 
   play (track) {
-    this._playView.setTrack(track);
-    Utils.animate(this._getFromDOM('container'), 'left', '-200%');
+
+    if (track) {
+      this._playView.setTrack(track);
+      Utils.animate(this._getFromDOM('container'), 'left', '-200%');
+    } else {
+      if (this._playView.isPlaying()) {
+        this._playView.stop();
+      } else {
+        this._playView.play();
+      }
+    }
   }
 
   prev () {
