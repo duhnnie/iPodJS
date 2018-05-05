@@ -60,6 +60,10 @@ export default class Playview extends BaseElement {
     }
   }
 
+  getTrack () {
+    return this._track;
+  }
+
   _updatePlaybackTime (duration, currentTime) {
     const elapsedSeconds = Math.round(currentTime);
     const remainingSeconds = Math.round(duration - elapsedSeconds);

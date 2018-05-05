@@ -22,13 +22,7 @@ export class iPod extends BaseElement {
   }
 
   _onPlayEnd (track) {
-    const nextTrack = track.getParentPlaylist().getTrack(track.getInfo().index + 1);
-
-    if (nextTrack) {
-      this._playView.setTrack(nextTrack);
-    } else {
-      this.back();
-    }
+    this.next();
   }
 
   back () {
@@ -67,6 +61,17 @@ export class iPod extends BaseElement {
   play (track) {
     this._playView.setTrack(track);
     Utils.animate(this._getFromDOM('container'), 'left', '-200%');
+  }
+
+  next () {
+    const currentTrack = this._playView.getTrack();
+    const nextTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + 1);
+
+    if (nextTrack) {
+      this._playView.setTrack(nextTrack);
+    } else {
+      this.back();
+    }
   }
 
   addPlaylist (playlist) {
