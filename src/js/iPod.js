@@ -14,9 +14,30 @@ export class iPod extends BaseElement {
     }, settings);
 
     this._playlists = new Set();
-    this._playView = new PlayView();
+    this._playView = new PlayView({
+      onEnded: this._onPlayEnd.bind(this)
+    });
 
     this.setPlaylists(settings.playlists);
+  }
+
+  _onPlayEnd (track) {
+    const nextTrack = track.getParentPlaylist().getTrack(track.getInfo().index + 1);
+
+    if (nextTrack) {
+      this._playView.setTrack(nextTrack);
+    } else {
+      this.back();
+    }
+  }
+
+  back () {
+    const container = this._getFromDOM('container');
+    const left = parseInt(container.style.left, 10);
+
+    if (left < 0) {
+      Utils.animate(container, 'left', `${left + 100}%`);
+    }
   }
 
   clearPlaylists () {
@@ -38,12 +59,11 @@ export class iPod extends BaseElement {
   }
 
   _onSelectTrackHandler (track) {
-    const trackInfo = track.getInfo();
+    this.play(track);
+  }
 
-    trackInfo.index = `${trackInfo.index + 1} of ${track.getParentPlaylist().getTracks().length}`;
-
-    this._playView.setInfo(trackInfo);
-
+  play (track) {
+    this._playView.setTrack(track);
     Utils.animate(this._getFromDOM('container'), 'left', '-200%');
   }
 

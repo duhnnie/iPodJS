@@ -345,11 +345,16 @@
                     ]
                 });
 
-                console.log(instance._id);
+                document.getElementById('menu').addEventListener('click', () => instance.back());
+                
                 document.body.appendChild(instance.getHTML());
             });
         </script>
     </head>
     <body>
+        <button type="button" id="prev">Prev</button>
+        <button type="button" id="menu">Menu</button>
+        <button type="button" id="play">Play/Pause</button>
+        <button type="button" id="next">Next</button>
     </body>
 </html>

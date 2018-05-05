@@ -62,6 +62,10 @@ export default class Playlist extends ListItem {
     return [...this._tracks];
   }
 
+  getTrack (index) {
+    return this.getTracks()[index];
+  }
+
   _createHTML () {
     if (!this._html) {
       super._createHTML();

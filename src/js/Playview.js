@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import BaseElement from './BaseElement';
+import Utils from './Utils';
 import playviewStyles from '../css/playview.css';
 
 export default class Playview extends BaseElement {
@@ -7,24 +8,39 @@ export default class Playview extends BaseElement {
     super(settings);
 
     settings = _.merge({
-      artist: '[unknown artist]',
-      title: '[unknown]',
-      album: '[unknown album]',
-      artwork: null,
-      rating: 0,
-      index: null
+      onEnded: null
     }, settings);
 
-    this.setInfo(settings);
+    this._audio = new window.Audio();
+    this._onEnded = settings.onEnded;
   }
 
-  setInfo (info) {
-    this._artist = info.artist;
-    this._title = info.title;
-    this._album = info.album;
-    this._artwork = info.artwork;
-    this._rating = info.rating;
-    this._index = info.index;
+  play (audioSource) {
+    if (audioSource) {
+      this._audio.setAttribute('src', audioSource);
+    }
+
+    this._audio.play();
+  }
+
+  stop () {
+    this._audio.pause();
+  }
+
+  setTrack (track) {
+    let info;
+
+    this.stop();
+
+    if (track) {
+      info = track.getInfo();
+      info.index = `${info.index + 1} of ${track.getParentPlaylist().getTracks().length}`;
+      this.play(info.audio);
+    } else {
+      info = {};
+    }
+
+    this._track = track;
 
     if (this._html) {
       let ratingText = '';
@@ -40,9 +56,29 @@ export default class Playview extends BaseElement {
       this._setToDOM(BaseElement.createText(ratingText), 'rating');
       this._setToDOM(BaseElement.createText(info.index), 'index');
 
-      this._setToDOM(BaseElement.createText('00:00'), 'elapsedTime');
-      this._setToDOM(BaseElement.createText('00:00'), 'remainingTime');
+      this._updatePlaybackTime(0, 0);
     }
+  }
+
+  _updatePlaybackTime (duration, currentTime) {
+    const elapsedSeconds = Math.round(currentTime);
+    const remainingSeconds = Math.round(duration - elapsedSeconds);
+
+    this._setToDOM(BaseElement.createText(`${Utils.secondsToTime(elapsedSeconds)}`), 'elapsedTime');
+    this._getFromDOM('progressBar').style.width = `${currentTime / duration * 100 || 0}%`;
+    this._setToDOM(BaseElement.createText(`${Utils.secondsToTime(remainingSeconds)}`), 'remainingTime');
+  }
+
+  _addEventListeners () {
+    this._audio.addEventListener('timeupdate', (e) => {
+      if (this._track) {
+        this._updatePlaybackTime(e.target.duration, e.target.currentTime);
+      }
+    });
+
+    this._audio.addEventListener('ended', () => {
+      return this._onEnded && this._onEnded(this._track);
+    });
   }
 
   _createHTML () {
@@ -67,14 +103,7 @@ export default class Playview extends BaseElement {
       this._addToDOM(BaseElement.create('div', playviewStyles['progress-bar']), 'progressBarContainer', 'progressBar');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'remainingTime');
 
-      this.setInfo({
-        artist: this._artist,
-        title: this._title,
-        album: this._album,
-        artwork: this._artwork,
-        rating: this._rating,
-        index: this._index
-      });
+      this.setTrack(this._track);
     }
   }
 }
