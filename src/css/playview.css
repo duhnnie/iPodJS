@@ -28,7 +28,7 @@
 .artwork {
   width: 130px;
   height: 130px;
-  background-image: url('https://upload.wikimedia.org/wikipedia/en/a/aa/NOFX_-_Don%27t_Call_Me_White_cover.jpg');
+  min-width: 130px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

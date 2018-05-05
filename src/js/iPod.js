@@ -59,7 +59,6 @@ export class iPod extends BaseElement {
   }
 
   play (track) {
-
     if (track) {
       this._playView.setTrack(track);
       Utils.animate(this._getFromDOM('container'), 'left', '-200%');
