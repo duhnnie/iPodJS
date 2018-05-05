@@ -63,13 +63,24 @@ export class iPod extends BaseElement {
     Utils.animate(this._getFromDOM('container'), 'left', '-200%');
   }
 
+  prev () {
+    const currentTrack = this._playView.getTrack();
+    const prevTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index - 1);
+
+    this._playView.setTrack(prevTrack);
+
+    if (!prevTrack) {
+      this.back();
+    }
+  }
+
   next () {
     const currentTrack = this._playView.getTrack();
     const nextTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + 1);
 
-    if (nextTrack) {
-      this._playView.setTrack(nextTrack);
-    } else {
+    this._playView.setTrack(nextTrack);
+
+    if (!nextTrack) {
       this.back();
     }
   }
