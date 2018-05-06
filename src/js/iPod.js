@@ -10,12 +10,16 @@ export class iPod extends BaseElement {
     super(settings);
 
     settings = _.merge({
-      playlists: []
+      playlists: [],
+      skipTrackOnError: true,
+      timeBeforeSkip: 10000
     }, settings);
 
     this._playlists = new Set();
     this._playView = new PlayView({
-      onEnded: this._onPlayEnd.bind(this)
+      onEnded: this._onPlayEnd.bind(this),
+      skipOnError: settings.skipTrackOnError,
+      timeBeforeSkip: settings.timeBeforeSkip
     });
 
     this.setPlaylists(settings.playlists);

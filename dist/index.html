@@ -10,6 +10,8 @@
 
             window.addEventListener('DOMContentLoaded', () => {
                 instance = new iPodJS.iPod({
+                    skipTrackOnError: true,
+                    timeBeforeSkip: 5000,
                     playlists: [
                         {
                             name: "My first playlist",

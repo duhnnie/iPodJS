@@ -10,8 +10,8 @@ export default class Playview extends BaseElement {
     settings = _.merge({
       onEnded: null,
       track: null,
-      skipOnError: true,
-      timeBeforeSkip: 10000
+      skipOnError: null,
+      timeBeforeSkip: null
     }, settings);
 
     this._audio = new window.Audio();
@@ -50,6 +50,7 @@ export default class Playview extends BaseElement {
     let info;
 
     this._track = track;
+    window.clearTimeout(this._timeoutRef);
 
     if (track) {
       info = track.getInfo();
