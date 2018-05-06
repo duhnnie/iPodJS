@@ -119,7 +119,7 @@ export default class Playview extends BaseElement {
     this._audio.addEventListener('loadeddata', () => this._showTrackNotification(''));
     this._audio.addEventListener('error', () => {
       this._showTrackNotification('[not available]');
-      
+
       if (this._skipOnError) {
         this._timeoutRef = setTimeout(() => {
           window.clearTimeout(this._timeoutRef);

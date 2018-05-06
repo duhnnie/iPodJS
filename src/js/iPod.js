@@ -2,8 +2,8 @@ import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Playlist from './Playlist';
 import Utils from './Utils';
-import ipodStyle from '../css/ipod.css';
 import PlayView from './PlayView';
+import ipodStyle from '../css/ipod.css';
 
 export class iPod extends BaseElement {
   constructor (settings) {
@@ -133,6 +133,20 @@ export class iPod extends BaseElement {
     _.forEach(playlists, this.addPlaylist.bind(this));
   }
 
+  _getRootClasses () {
+    return [ipodStyle['ipodjs']];
+  }
+
+  _addEventListeners () {
+    if (this._getFromDOM('screen')) {
+      this._getFromDOM('menuArea').addEventListener('click', () => this.back());
+      this._getFromDOM('prevArea').addEventListener('click', () => this.prev());
+      this._getFromDOM('nextArea').addEventListener('click', () => this.next());
+      this._getFromDOM('playArea').addEventListener('click', () => this.play());
+      this._getFromDOM('selectArea').addEventListener('click', () => console.log('selection'));
+    }
+  }
+
   _createHTML () {
     if (!this._html) {
       const screen = BaseElement.create('div');
@@ -141,6 +155,14 @@ export class iPod extends BaseElement {
       const playlistPanel = BaseElement.create('ul');
       const tracklistPanel = BaseElement.create('ul');
       const playingPanel = BaseElement.create('div');
+      const controlsImg = BaseElement.create('img');
+      const map = BaseElement.create('map');
+      const menuArea = BaseElement.create('area');
+      const prevArea = BaseElement.create('area');
+      const nextArea = BaseElement.create('area');
+      const playArea = BaseElement.create('area');
+      const selectArea = BaseElement.create('area');
+      const mapName = 'ipodjs-map';
 
       super._createHTML();
 
@@ -150,16 +172,44 @@ export class iPod extends BaseElement {
       playlistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
       tracklistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
       playingPanel.classList.add(ipodStyle['panel']);
+      controlsImg.classList.add(ipodStyle['controls-image']);
+      controlsImg.src = './img/pixel.gif';
+      controlsImg.useMap = mapName;
+      map.name = mapName;
+      menuArea.shape = 'rect';
+      menuArea.href = '#';
+      menuArea.coords = '150,30,290,85';
+      prevArea.shape = 'circle';
+      prevArea.href = '#';
+      prevArea.coords = '125,130,40';
+      nextArea.shape = 'circle';
+      nextArea.href = '#';
+      nextArea.coords = '312,145,40';
+      playArea.shape = 'circle';
+      playArea.href = '#';
+      playArea.coords = '212,230,45';
+      selectArea.shape = 'circle';
+      selectArea.href = '#';
+      selectArea.coords = '215,135,47';
 
       this._addToDOM(screen, null, 'screen');
+      this._addToDOM(controlsImg);
       this._addToDOM(topBar, 'screen', 'topBar');
       this._addToDOM(container, 'screen', 'container');
       this._addToDOM(playlistPanel, 'container', 'playlistPanel');
       this._addToDOM(tracklistPanel, 'container', 'tracklistPanel');
       this._addToDOM(playingPanel, 'container', 'playingPanel');
       this._addToDOM(this._playView.getHTML(), 'playingPanel');
+      this._addToDOM(map, null, 'map');
+      this._addToDOM(menuArea, 'map', 'menuArea');
+      this._addToDOM(prevArea, 'map', 'prevArea');
+      this._addToDOM(nextArea, 'map', 'nextArea');
+      this._addToDOM(playArea, 'map', 'playArea');
+      this._addToDOM(selectArea, 'map', 'selectArea');
 
       this.setPlaylists([...this._playlists]);
+
+      this._addEventListeners();
     }
 
     return this;
