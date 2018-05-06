@@ -14,9 +14,6 @@ const basicConf = {
     library: 'iPodJS',
     libraryTarget: 'var'
   },
-  externals: {
-    lodash: '_'
-  },
   module: {
     rules: [
       {
@@ -54,6 +51,9 @@ if (env === 'dev') {
   };
 } else {
   specificConf = {
+    externals: {
+      lodash: '_'
+    },
     devtool: 'source-map',
     plugins: [
       new UglifyJSPlugin({
