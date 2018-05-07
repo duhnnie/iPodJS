@@ -14,12 +14,112 @@
   );
 }
 
-.controls-image {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  top: 12%;
-  left: 0;
+.control-link {
+  position: absolute;
+}
+
+.control-link img {
+  background-image: url('/img/ipodjs-controls.png');
+  background-image: -webkit-image-set(
+    url('/img/ipodjs-controls.png') 1x,
+    url('/img/ipodjs-controls@1.5x.png') 1.5x,
+    url('/img/ipodjs-controls@2x.png') 2x,
+    url('/img/ipodjs-controls@2.5x.png') 2.5x
+  );
+  background-image: image-set(
+    url('/img/ipodjs-controls.png') 1x,
+    url('/img/ipodjs-controls@1.5x.png') 1.5x,
+    url('/img/ipodjs-controls@2x.png') 2x,
+    url('/img/ipodjs-controls@2.5x.png') 2.5x
+  );
+}
+
+.menu-link,
+.forward-link,
+.backward-link,
+.play-link,
+.select-link {
+  composes: control-link;
+}
+
+.menu-link {
+  left: 175px;
+  top: 408px;
+}
+
+.menu-link img {
+  background-position: 0 0;
+  width: 84px;
+  height: 24px;
+}
+
+.menu-link:hover img,
+.menu-link:focus img {
+  background-position: -194px 0;
+}
+
+.backward-link {
+  left: 95px;
+  top: 491px;
+}
+
+.backward-link img {
+  background-position: 0px -25px;
+  width: 53px;
+  height: 31px;
+}
+
+.backward-link:hover img,
+.backward-link:focus img {
+  background-position: -194px -25px;
+}
+
+.forward-link {
+  left: 307px;
+  top: 507px;
+}
+
+.forward-link img {
+  background-position: -59px -28px;
+  width: 49px;
+  height: 27px;
+}
+
+.forward-link:hover img,
+.forward-link:focus img {
+  background-position: -253px -28px;
+}
+
+.play-link {
+  left: 185px;
+  top: 604px;
+}
+
+.play-link img {
+  background-position: -115px -26px;
+  width: 63px;
+  height: 31px;
+}
+
+.play-link:hover img,
+.play-link:focus img {
+  background-position: -309px -26px;
+}
+
+.select-link {
+  top: 467px;
+  left: 181px;
+}
+
+.select-link img {
+  background-position: 0 -54px;
+  height: 87px;
+  width: 89px;
+}
+
+.select-link:hover img,
+.select-link:focus img {
+  background-position: -205px -69px; 
 }
 
 .screen {
