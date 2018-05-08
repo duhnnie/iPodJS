@@ -28,22 +28,24 @@ export default class Playview extends BaseElement {
     this._getFromDOM('trackNotification').data = text;
   }
 
-  play () {
-    if (this._track) {
-      const audioSource = this._track.getAudio() || '';
-
-      this._audio.setAttribute('src', audioSource || '');
-      this._isPlaying = true;
-
-      if (audioSource) {
-        this._audio.play();
-      }
-    }
+  _play () {
+    this._audio.play().catch(this._onPlaybackError.bind(this));
+    this._isPlaying = true;
   }
 
-  stop () {
-    this._isPlaying = false;
+  _pause () {
     this._audio.pause();
+    this._isPlaying = false;
+  }
+
+  playPause () {
+    if (this._track) {
+      if (this._isPlaying) {
+        this._pause();
+      } else {
+        this._play();
+      }
+    }
   }
 
   setTrack (track) {
@@ -55,14 +57,8 @@ export default class Playview extends BaseElement {
     if (track) {
       info = track.getInfo();
       info.index = `${info.index + 1} of ${track.getParentPlaylist().getTracks().length}`;
-
-      if (this._isPlaying) {
-        this.stop();
-        this.play();
-      }
     } else {
       info = {};
-      this.stop();
     }
 
     if (this._html) {
@@ -80,7 +76,12 @@ export default class Playview extends BaseElement {
       this._setToDOM(BaseElement.createText(info.index), 'index');
 
       this._showTrackNotification(!info.audio ? '[not available]' : '');
-      this._updatePlaybackTime(0, 0);
+
+      this._audio.src = info.audio || '';
+
+      if (this._isPlaying) {
+        this._play();
+      }
     }
 
     return this;
@@ -107,6 +108,22 @@ export default class Playview extends BaseElement {
     return this._onEnded && this._onEnded(this._track);
   }
 
+  _onPlaybackError () {
+    this._showTrackNotification('[not available]');
+
+    if (this._skipOnError) {
+      this._timeoutRef = setTimeout(() => {
+        window.clearTimeout(this._timeoutRef);
+        this._onEndedHandler();
+      }, this._timeBeforeSkip);
+    }
+  }
+
+  _onLoadedData (e) {
+    this._showTrackNotification('');
+    this._updatePlaybackTime(e.target.duration, 0);
+  }
+
   _addEventListeners () {
     this._audio.addEventListener('timeupdate', (e) => {
       if (this._track) {
@@ -116,17 +133,7 @@ export default class Playview extends BaseElement {
 
     this._audio.addEventListener('ended', this._onEndedHandler.bind(this));
     this._audio.addEventListener('loadstart', () => this._showTrackNotification('loading...'));
-    this._audio.addEventListener('loadeddata', () => this._showTrackNotification(''));
-    this._audio.addEventListener('error', () => {
-      this._showTrackNotification('[not available]');
-
-      if (this._skipOnError) {
-        this._timeoutRef = setTimeout(() => {
-          window.clearTimeout(this._timeoutRef);
-          this._onEndedHandler();
-        }, this._timeBeforeSkip);
-      }
-    });
+    this._audio.addEventListener('loadeddata', (e) => this._onLoadedData(e));
   }
 
   _createHTML () {

@@ -29,12 +29,12 @@ export class iPod extends BaseElement {
     this.next();
   }
 
-  back () {
+  back (callback = null) {
     const container = this._getFromDOM('container');
     const left = parseInt(container.style.left, 10);
 
     if (left < 0) {
-      Utils.animate(container, 'left', `${left + 100}%`);
+      Utils.animate(container, 'left', `${left + 100}%`, callback);
     }
   }
 
@@ -71,16 +71,12 @@ export class iPod extends BaseElement {
       this._playView.setTrack(track);
 
       if (!this._playView.isPlaying()) {
-        this._playView.play();
+        this._playView.playPause();
       }
 
       Utils.animate(this._getFromDOM('container'), 'left', '-200%');
     } else {
-      if (this._playView.isPlaying()) {
-        this._playView.stop();
-      } else {
-        this._playView.play();
-      }
+      this._playView.playPause();
     }
   }
 
@@ -90,7 +86,7 @@ export class iPod extends BaseElement {
     if (currentTrack) {
       const newTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + movement);
 
-      if (!newTrack && this._playView.isPlaying()) {
+      if (!newTrack) {
         this.back();
       }
 

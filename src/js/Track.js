@@ -12,7 +12,7 @@ export default class Track extends ListItem {
       title: '[untitled]',
       album: '[unknown album]',
       artwork: null,
-      audio: null,
+      audio: '',
       index: null,
       rating: 0,
       parentPlaylist: null
@@ -22,7 +22,7 @@ export default class Track extends ListItem {
     this._title = settings.title;
     this._album = settings.album;
     this._artwork = settings.artwork;
-    this._audio = settings.audio;
+    this._audio = settings.audio || '';
     this._rating = settings.rating;
     this._parentPlaylist = settings.parentPlaylist;
 
