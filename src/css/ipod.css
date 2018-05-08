@@ -1,4 +1,5 @@
 .ipodjs {
+  position: relative;
   width: 445px;
   height: 680px;
   background-image: url('/img/ipodjs.png');
@@ -43,8 +44,8 @@
 }
 
 .menu-link {
-  left: 175px;
-  top: 408px;
+  left: 167px;
+  top: 381px;
 }
 
 .menu-link img {
@@ -59,8 +60,8 @@
 }
 
 .backward-link {
-  left: 95px;
-  top: 491px;
+  left: 87px;
+  top: 464px;
 }
 
 .backward-link img {
@@ -75,8 +76,8 @@
 }
 
 .forward-link {
-  left: 307px;
-  top: 507px;
+  left: 299px;
+  top: 480px;
 }
 
 .forward-link img {
@@ -91,8 +92,8 @@
 }
 
 .play-link {
-  left: 185px;
-  top: 604px;
+  left: 177px;
+  top: 577px;
 }
 
 .play-link img {
@@ -107,8 +108,8 @@
 }
 
 .select-link {
-  top: 467px;
-  left: 181px;
+  top: 440px;
+  left: 173px;
 }
 
 .select-link img {
