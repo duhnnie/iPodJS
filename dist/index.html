@@ -652,20 +652,11 @@
                         }
                     ]
                 });
-
-                document.getElementById('menu').addEventListener('click', () => instance.back());
-                document.getElementById('prev').addEventListener('click', () => instance.prev());
-                document.getElementById('play').addEventListener('click', () => instance.play());
-                document.getElementById('next').addEventListener('click', () => instance.next());
                 
                 document.body.appendChild(instance.getHTML());
             });
         </script>
     </head>
     <body>
-        <button type="button" id="prev">Prev</button>
-        <button type="button" id="menu">Menu</button>
-        <button type="button" id="play">Play/Pause</button>
-        <button type="button" id="next">Next</button>
     </body>
 </html>

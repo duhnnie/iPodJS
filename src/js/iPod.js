@@ -6,6 +6,25 @@ import PlayView from './PlayView';
 import ipodStyle from '../css/ipod.css';
 
 export class iPod extends BaseElement {
+  static get SCREENS () {
+    return {
+      HOME: {
+        left: '0%',
+        text: 'Playlists'
+      },
+      PLAYLIST: {
+        left: '-100%',
+        text: (instance) => instance._currentPlaylist.getName(),
+        parent: 'HOME'
+      },
+      NOW_PLAYING: {
+        left: '-200%',
+        text: 'Now Playing',
+        parent: 'PLAYLIST'
+      }
+    };
+  }
+
   constructor (settings) {
     super(settings);
 
@@ -16,6 +35,8 @@ export class iPod extends BaseElement {
     }, settings);
 
     this._playlists = new Set();
+    this._currentPlaylist = null;
+    this._currentScreen = null;
     this._playView = new PlayView({
       onEnded: this._onPlayEnd.bind(this),
       skipOnError: settings.skipTrackOnError,
@@ -25,16 +46,24 @@ export class iPod extends BaseElement {
     this.setPlaylists(settings.playlists);
   }
 
+  _gotoScreen (screen) {
+    const container = this._getFromDOM('container');
+
+    Utils.animate(container, 'left', `${screen.left}`, () => {
+      this._currentScreen = screen;
+      this._getFromDOM('topBarText').data = (typeof screen.text === 'function' ? screen.text(this) : screen.text);
+    });
+  }
+
   _onPlayEnd (track) {
     this.next();
   }
 
-  back (callback = null) {
-    const container = this._getFromDOM('container');
-    const left = parseInt(container.style.left, 10);
+  back () {
+    const parentScreen = this._currentScreen.parent;
 
-    if (left < 0) {
-      Utils.animate(container, 'left', `${left + 100}%`, callback);
+    if (parentScreen) {
+      this._gotoScreen(iPod.SCREENS[parentScreen]);
     }
   }
 
@@ -45,6 +74,7 @@ export class iPod extends BaseElement {
   _setTracklist (playlist) {
     const tracks = playlist.getTracks();
 
+    this._currentPlaylist = playlist;
     this._clear('tracklistPanel');
 
     tracks.forEach((track) => {
@@ -55,7 +85,7 @@ export class iPod extends BaseElement {
   _onSelectPlaylist (playlist) {
     this._setTracklist(playlist);
 
-    Utils.animate(this._getFromDOM('container'), 'left', '-100%');
+    this._gotoScreen(iPod.SCREENS.PLAYLIST);
   }
 
   _onSelectTrackHandler (track) {
@@ -74,7 +104,7 @@ export class iPod extends BaseElement {
         this._playView.playPause();
       }
 
-      Utils.animate(this._getFromDOM('container'), 'left', '-200%');
+      this._gotoScreen(iPod.SCREENS.NOW_PLAYING);
     } else {
       this._playView.playPause();
     }
@@ -207,9 +237,11 @@ export class iPod extends BaseElement {
       this._addToDOM(playlistPanel, 'container', 'playlistPanel');
       this._addToDOM(tracklistPanel, 'container', 'tracklistPanel');
       this._addToDOM(playingPanel, 'container', 'playingPanel');
+      this._addToDOM(BaseElement.createText(''), 'topBar', 'topBarText');
       this._addToDOM(this._playView.getHTML(), 'playingPanel');
 
       this.setPlaylists([...this._playlists]);
+      this._gotoScreen(iPod.SCREENS.HOME);
 
       this._addEventListeners();
     }

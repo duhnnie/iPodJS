@@ -58,6 +58,10 @@ export default class Playlist extends ListItem {
     tracks.forEach(this.addTrack.bind(this));
   }
 
+  getName () {
+    return this._name;
+  }
+
   getTracks () {
     return [...this._tracks];
   }
