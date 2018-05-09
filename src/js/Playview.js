@@ -81,6 +81,7 @@ export default class Playview extends BaseElement {
       this._setToDOM(BaseElement.createText(ratingText), 'rating');
       this._setToDOM(BaseElement.createText(info.index), 'index');
 
+      this._setPlaybackTime(0, 0);
       this._showTrackNotification(!info.audio ? '[not available]' : '');
 
       if (this._isPlaying) {
@@ -88,7 +89,6 @@ export default class Playview extends BaseElement {
         this._play();
       } else {
         this._pause();
-        this._setPlaybackTime(0, 0);
       }
     }
 
