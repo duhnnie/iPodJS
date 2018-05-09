@@ -68,7 +68,7 @@ export class iPod extends BaseElement {
 
   play (track) {
     if (track) {
-      this._playView.setTrack(track);
+      this._setTrack(track);
 
       if (!this._playView.isPlaying()) {
         this._playView.playPause();
