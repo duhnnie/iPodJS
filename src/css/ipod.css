@@ -2,6 +2,8 @@
   position: relative;
   width: 445px;
   height: 680px;
+  /* TODO: Remove next rule when Firefox supports image-set() */
+  background-size: contain;
   background-image: url('/img/ipodjs.png');
   background-image: -webkit-image-set(
     url('/img/ipodjs.png') 1x,
