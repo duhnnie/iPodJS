@@ -116,10 +116,10 @@ export default class Playview extends BaseElement {
     return this._onEnded && this._onEnded(this._track);
   }
 
-  _onPlaybackError () {
+  _onPlaybackError (error) {
     this._showTrackNotification('[not available]');
 
-    if (this._skipOnError) {
+    if (this._skipOnError && error.code !== error.ABORT_ERR) {
       this._timeoutRef = setTimeout(() => {
         window.clearTimeout(this._timeoutRef);
         this._onEndedHandler();
