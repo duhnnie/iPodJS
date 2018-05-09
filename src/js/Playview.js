@@ -29,6 +29,12 @@ export default class Playview extends BaseElement {
   }
 
   _play () {
+    const audio = this._track.getAudio();
+
+    if (this._audio.currentSrc !== audio) {
+      this._audio.src = audio;
+    }
+
     this._audio.play().catch(this._onPlaybackError.bind(this));
     this._isPlaying = true;
   }
@@ -77,10 +83,12 @@ export default class Playview extends BaseElement {
 
       this._showTrackNotification(!info.audio ? '[not available]' : '');
 
-      this._audio.src = info.audio || '';
-
       if (this._isPlaying) {
+        this._audio.src = info.audio || '';
         this._play();
+      } else {
+        this._pause();
+        this._setPlaybackTime(0, 0);
       }
     }
 
@@ -95,7 +103,7 @@ export default class Playview extends BaseElement {
     return this._track;
   }
 
-  _updatePlaybackTime (duration, currentTime) {
+  _setPlaybackTime (duration, currentTime) {
     const elapsedSeconds = Math.round(currentTime);
     const remainingSeconds = Math.round(duration - elapsedSeconds);
 
@@ -121,13 +129,13 @@ export default class Playview extends BaseElement {
 
   _onLoadedData (e) {
     this._showTrackNotification('');
-    this._updatePlaybackTime(e.target.duration, 0);
+    this._setPlaybackTime(e.target.duration, 0);
   }
 
   _addEventListeners () {
     this._audio.addEventListener('timeupdate', (e) => {
       if (this._track) {
-        this._updatePlaybackTime(e.target.duration, e.target.currentTime);
+        this._setPlaybackTime(e.target.duration, e.target.currentTime);
       }
     });
 
