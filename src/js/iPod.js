@@ -2,7 +2,7 @@ import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Playlist from './Playlist';
 import Utils from './Utils';
-import PlayView from './PlayView';
+import Playview from './Playview';
 import ipodStyle from '../css/ipod.css';
 
 export class iPod extends BaseElement {
@@ -37,7 +37,7 @@ export class iPod extends BaseElement {
     this._playlists = new Set();
     this._currentPlaylist = null;
     this._currentScreen = null;
-    this._playView = new PlayView({
+    this._playview = new Playview({
       onEnded: this._onPlayEnd.bind(this),
       skipOnError: settings.skipTrackOnError,
       timeBeforeSkip: settings.timeBeforeSkip
@@ -93,25 +93,25 @@ export class iPod extends BaseElement {
   }
 
   _setTrack (track) {
-    this._playView.setTrack(track);
+    this._playview.setTrack(track);
   }
 
   play (track) {
     if (track) {
       this._setTrack(track);
 
-      if (!this._playView.isPlaying()) {
-        this._playView.playPause();
+      if (!this._playview.isPlaying()) {
+        this._playview.playPause();
       }
 
       this._gotoScreen(iPod.SCREENS.NOW_PLAYING);
     } else {
-      this._playView.playPause();
+      this._playview.playPause();
     }
   }
 
   _moveOnPlaylist (movement) {
-    const currentTrack = this._playView.getTrack();
+    const currentTrack = this._playview.getTrack();
 
     if (currentTrack) {
       const newTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + movement);
@@ -231,7 +231,7 @@ export class iPod extends BaseElement {
       this._addToDOM(tracklistPanel, 'container', 'tracklistPanel');
       this._addToDOM(playingPanel, 'container', 'playingPanel');
       this._addToDOM(BaseElement.createText(''), 'topBar', 'topBarText');
-      this._addToDOM(this._playView.getHTML(), 'playingPanel');
+      this._addToDOM(this._playview.getHTML(), 'playingPanel');
 
       this.setPlaylists([...this._playlists]);
       this._gotoScreen(iPod.SCREENS.HOME);
