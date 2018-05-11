@@ -203,21 +203,14 @@ export class iPod extends BaseElement {
 
   _createHTML () {
     if (!this._html) {
-      const screen = BaseElement.create('div');
-      const topBar = BaseElement.create('div');
-      const container = BaseElement.create('div');
-      const playlistPanel = BaseElement.create('ul');
-      const tracklistPanel = BaseElement.create('ul');
-      const playingPanel = BaseElement.create('div');
+      const screen = BaseElement.create('div', ipodStyle['screen']);
+      const topBar = BaseElement.create('div', ipodStyle['top-bar']);
+      const container = BaseElement.create('div', ipodStyle['container']);
+      const playlistPanel = BaseElement.create('ul', [ipodStyle['panel'], ipodStyle['list']]);
+      const tracklistPanel = BaseElement.create('ul', [ipodStyle['panel'], ipodStyle['list']]);
+      const playingPanel = BaseElement.create('div', ipodStyle['panel']);
 
       super._createHTML();
-
-      screen.classList.add(ipodStyle['screen']);
-      topBar.classList.add(ipodStyle['top-bar']);
-      container.classList.add(ipodStyle['container']);
-      playlistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
-      tracklistPanel.classList.add(ipodStyle['panel'], ipodStyle['list']);
-      playingPanel.classList.add(ipodStyle['panel']);
 
       this._getControlsHTMLDef().forEach((def) => {
         const img = BaseElement.create('img');

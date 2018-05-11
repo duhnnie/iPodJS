@@ -11,6 +11,8 @@ export default class BaseElement {
       elem.setAttribute('id', id);
     }
 
+    // We could call classList.add() just once sending all classes en the arguments list
+    // but IE11 doesn't support more than a single argument, that's why we call it one time per class
     cssClass.forEach((cssClass) => elem.classList.add(cssClass));
 
     return elem;
