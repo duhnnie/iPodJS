@@ -10,7 +10,7 @@ const basicConf = {
   entry: './src/js/iPod.js',
   output: {
     filename: 'ipod.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/js'),
     library: 'iPodJS',
     libraryTarget: 'var'
   },
@@ -36,13 +36,13 @@ const basicConf = {
         include: path.join(__dirname, 'src/img'),
         options: {
           limit: 8000,
-          name: 'img/[hash]-[name].[ext]'
+          name: '../img/[hash]-[name].[ext]'
         }
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('ipodjs.css')
+    new ExtractTextPlugin('../css/ipodjs.css')
   ]
 };
 
