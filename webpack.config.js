@@ -28,7 +28,7 @@ const basicConf = {
       {
         test: /\.css$/,
         include: path.join(__dirname, 'src/css'),
-        use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[path][name]__[local]___[hash:base64:5]')
+        use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
