@@ -4,6 +4,7 @@ import Playlist from './Playlist';
 import Utils from './Utils';
 import Playview from './Playview';
 import ipodStyle from '../css/ipod.css';
+import pixelImg from '../img/pixel.gif';
 
 export class iPod extends BaseElement {
   static get SCREENS () {
@@ -217,7 +218,7 @@ export class iPod extends BaseElement {
         const link = BaseElement.create('a', ipodStyle[def.ref]);
 
         // TODO: use images as module
-        img.src = '/img/pixel.gif';
+        img.src = pixelImg;
         link.href = '#';
 
         this._addToDOM(link, null, def.ref);
