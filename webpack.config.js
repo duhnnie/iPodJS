@@ -11,6 +11,7 @@ const basicConf = {
   output: {
     filename: 'ipod.js',
     path: path.resolve(__dirname, 'dist/js'),
+    publicPath: '/js/',
     library: 'iPodJS',
     libraryTarget: 'var'
   },
