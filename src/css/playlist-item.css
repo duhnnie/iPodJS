@@ -1,0 +1,11 @@
+.item:before {
+  content: '';
+  width: 18px;
+  height: 20px;
+  background-position: -24px -58px;
+  margin-top: -10px;  
+}
+
+.item > * {
+  padding-left: 26px;
+}

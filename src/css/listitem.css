@@ -14,17 +14,11 @@
   outline: none;
 }
 
+.link:before,
 .link:after {
-  content: '';
-  width: 17px;
-  height: 14px;
-  display: inline-block;
   position: absolute;
-  right: 0;
+  display: inline-block;
   top: 50%;
-  margin-top: -7px;
-  margin-right: 5px;
-  background-position: 2px -128px;
   background-image: url('../img/ipodjs-controls.png');
   background-image: -webkit-image-set(
     url('../img/ipodjs-controls.png') 1x,
@@ -38,6 +32,16 @@
     url('../img/ipodjs-controls@2x.png') 2x,
     url('../img/ipodjs-controls@2.5x.png') 2.5x
   );
+}
+
+.link:after {
+  content: '';
+  width: 17px;
+  height: 14px;
+  right: 0;
+  margin-top: -7px;
+  margin-right: 5px;
+  background-position: 2px -128px;
 }
 
 .text-overflow {
