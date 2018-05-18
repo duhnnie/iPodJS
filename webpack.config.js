@@ -10,8 +10,8 @@ const basicConf = {
   entry: './src/js/iPod.js',
   output: {
     filename: 'ipod.js',
-    path: path.resolve(__dirname, 'dist/js'),
-    publicPath: '/js/',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
     library: 'iPodJS',
     libraryTarget: 'var'
   },
@@ -37,13 +37,13 @@ const basicConf = {
         include: path.join(__dirname, 'src/img'),
         options: {
           limit: 8000,
-          name: '../img/[hash]-[name].[ext]'
+          name: './img/[name].[ext]'
         }
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('../css/ipodjs.css')
+    new ExtractTextPlugin('./ipodjs.css')
   ]
 };
 
@@ -52,8 +52,8 @@ let specificConf;
 if (env === 'dev') {
   specificConf = {
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      watchContentBase: true,
+      contentBase: __dirname,
+      watchContentBase: false,
       compress: true,
       port: 8080
     },
