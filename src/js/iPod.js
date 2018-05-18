@@ -118,7 +118,7 @@ export class iPod extends BaseElement {
       const newTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + movement);
 
       if (!newTrack) {
-        this.back();
+        this._gotoScreen(iPod.SCREENS.PLAYLIST);
       }
 
       this._setTrack(newTrack);
