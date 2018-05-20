@@ -21,7 +21,8 @@
   position: absolute;
 }
 
-.control-link img {
+.control-link img,
+.top-bar:after {
   background-image: url('../img/ipodjs-controls.png');
   background-image: -webkit-image-set(
     url('../img/ipodjs-controls.png') 1x,
@@ -150,6 +151,16 @@
   position: absolute;
   width: 100%;
   box-sizing: border-box;
+}
+
+.top-bar:after {
+  content: '';
+  height: 100%;
+  width: 27px;
+  background-position: -21px -58px;
+  vertical-align: middle;
+  top: 7px;
+  float: right;
 }
 
 .container {
