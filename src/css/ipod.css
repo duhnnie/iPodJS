@@ -17,11 +17,20 @@
   );
 }
 
+.ipodjs.playing .top-bar:after {
+  background-position: -50px -58px;
+}
+
+.ipodjs.paused .top-bar:after {
+  background-position: -64px -58px;
+}
+
 .control-link {
   position: absolute;
 }
 
 .control-link img,
+.top-bar:before,
 .top-bar:after {
   background-image: url('../img/ipodjs-controls.png');
   background-image: -webkit-image-set(
@@ -153,14 +162,24 @@
   box-sizing: border-box;
 }
 
+.top-bar:before,
 .top-bar:after {
   content: '';
   height: 100%;
+  float: right;
+}
+
+.top-bar:before {
   width: 27px;
   background-position: -21px -58px;
-  vertical-align: middle;
   top: 7px;
-  float: right;
+  
+}
+
+.top-bar:after {
+  width: 12px;
+  margin-right: .5em;
+  background-position: 0 -80px;
 }
 
 .container {

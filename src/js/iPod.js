@@ -26,25 +26,64 @@ export class iPod extends BaseElement {
     };
   }
 
+  static get PLAYBACK_STATES () {
+    return {
+      STOPPED: 0,
+      PLAYING: 1,
+      PAUSED: 2
+    };
+  }
+
   constructor (settings) {
     super(settings);
 
     settings = _.merge({
       playlists: [],
-      skipTrackOnError: true,
-      timeBeforeSkip: 10000
+      skipOnError: true,
+      timeBeforeSkip: 5000
     }, settings);
 
     this._playlists = new Set();
+    this._playbackState = null;
     this._currentPlaylist = null;
     this._currentScreen = null;
     this._playview = new Playview({
       onEnded: this._onPlayEnd.bind(this),
-      skipOnError: settings.skipTrackOnError,
-      timeBeforeSkip: settings.timeBeforeSkip
+      onError: this._onPlaybackError.bind(this)
     });
 
+    this._timeoutRef = null;
+    this._skipOnError = settings.skipOnError;
+    this._timeBeforeSkip = settings.timeBeforeSkip;
     this.setPlaylists(settings.playlists);
+    this._setPlaybackState(iPod.PLAYBACK_STATES.STOPPED);
+  }
+
+  _onPlaybackError (error, track) {
+    if (this._skipOnError && error.code !== error.ABORT_ERR) {
+      this._timeoutRef = setTimeout(() => {
+        window.clearTimeout(this._timeoutRef);
+        this._onPlayEnd(track);
+      }, this._timeBeforeSkip);
+    }
+  }
+
+  _setPlaybackState (state) {
+    this._playbackState = state;
+
+    if (this._html) {
+      this._html.classList.remove(ipodStyle['playing']);
+      this._html.classList.remove(ipodStyle['paused']);
+
+      switch (state) {
+        case iPod.PLAYBACK_STATES.PLAYING:
+          this._html.classList.add(ipodStyle['playing']);
+          break;
+        case iPod.PLAYBACK_STATES.PAUSED:
+          this._html.classList.add(ipodStyle['paused']);
+          break;
+      }
+    }
   }
 
   _gotoScreen (screen) {
@@ -90,24 +129,36 @@ export class iPod extends BaseElement {
   }
 
   _onSelectTrackHandler (track) {
-    this.play(track);
+    this._setTrack(track, true);
+    this._gotoScreen(iPod.SCREENS.NOW_PLAYING);
   }
 
-  _setTrack (track) {
+  _setTrack (track, play) {
+    window.clearTimeout(this._timeoutRef);
     this._playview.setTrack(track);
+    if (play) {
+      this._play();
+    }
   }
 
-  play (track) {
-    if (track) {
-      this._setTrack(track);
+  _play () {
+    this._setPlaybackState(iPod.PLAYBACK_STATES.PLAYING);
+    this._playview.play();
+  }
 
-      if (!this._playview.isPlaying()) {
-        this._playview.playPause();
+  _pause () {
+    window.clearTimeout(this._timeoutRef);
+    this._setPlaybackState(iPod.PLAYBACK_STATES.PAUSED);
+    this._playview.pause();
+  }
+
+  playPause () {
+    if (this._playview.getTrack()) {
+      if (this._playbackState === iPod.PLAYBACK_STATES.PAUSED) {
+        this._play();
+      } else {
+        this._pause();
       }
-
-      this._gotoScreen(iPod.SCREENS.NOW_PLAYING);
-    } else {
-      this._playview.playPause();
     }
   }
 
@@ -118,10 +169,12 @@ export class iPod extends BaseElement {
       const newTrack = currentTrack.getParentPlaylist().getTrack(currentTrack.getInfo().index + movement);
 
       if (!newTrack) {
+        this._setPlaybackState(iPod.PLAYBACK_STATES.STOPPED);
+        // TODO: Only move to playlist screen when the current screen is Now Playing
         this._gotoScreen(iPod.SCREENS.PLAYLIST);
       }
 
-      this._setTrack(newTrack);
+      this._setTrack(newTrack, this._playbackState === iPod.PLAYBACK_STATES.PLAYING);
     }
   }
 
@@ -193,7 +246,7 @@ export class iPod extends BaseElement {
       },
       {
         ref: 'play-link',
-        handler: this.play.bind(this)
+        handler: this.playPause.bind(this)
       },
       {
         ref: 'select-link',

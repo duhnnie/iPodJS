@@ -9,17 +9,13 @@ export default class Playview extends BaseElement {
 
     settings = _.merge({
       onEnded: null,
-      track: null,
-      skipOnError: null,
-      timeBeforeSkip: null
+      onError: null,
+      track: null
     }, settings);
 
     this._audio = new window.Audio();
     this._onEnded = settings.onEnded;
-    this._isPlaying = false;
-    this._timeoutRef = null;
-    this._skipOnError = settings.skipOnError;
-    this._timeBeforeSkip = settings.timeBeforeSkip;
+    this._onError = settings.onError;
 
     this.setTrack(settings.track);
   }
@@ -28,7 +24,7 @@ export default class Playview extends BaseElement {
     this._getFromDOM('trackNotification').data = text;
   }
 
-  _play () {
+  play () {
     const audio = this._track.getAudio();
 
     if (this._audio.currentSrc !== audio) {
@@ -36,29 +32,16 @@ export default class Playview extends BaseElement {
     }
 
     this._audio.play().catch(this._onPlaybackError.bind(this));
-    this._isPlaying = true;
   }
 
-  _pause () {
+  pause () {
     this._audio.pause();
-    this._isPlaying = false;
   }
 
-  playPause () {
-    if (this._track) {
-      if (this._isPlaying) {
-        this._pause();
-      } else {
-        this._play();
-      }
-    }
-  }
-
-  setTrack (track) {
+  setTrack (track, play) {
     let info;
 
     this._track = track;
-    window.clearTimeout(this._timeoutRef);
 
     if (track) {
       info = track.getInfo();
@@ -84,19 +67,15 @@ export default class Playview extends BaseElement {
       this._setPlaybackTime(0, 0);
       this._showTrackNotification(!info.audio ? '[not available]' : '');
 
-      if (this._isPlaying) {
+      if (play) {
         this._audio.src = info.audio || '';
-        this._play();
+        this.play();
       } else {
-        this._pause();
+        this.pause();
       }
     }
 
     return this;
-  }
-
-  isPlaying () {
-    return this._isPlaying;
   }
 
   getTrack () {
@@ -119,12 +98,7 @@ export default class Playview extends BaseElement {
   _onPlaybackError (error) {
     this._showTrackNotification('[not available]');
 
-    if (this._skipOnError && error.code !== error.ABORT_ERR) {
-      this._timeoutRef = setTimeout(() => {
-        window.clearTimeout(this._timeoutRef);
-        this._onEndedHandler();
-      }, this._timeBeforeSkip);
-    }
+    return this._onError && this._onError(error, this._track);
   }
 
   _onLoadedData (e) {
