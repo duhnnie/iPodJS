@@ -105,9 +105,11 @@ export default class Playview extends BaseElement {
   }
 
   _onPlaybackError (error) {
-    this._showTrackNotification('[not available]');
+    if (error.code !== window.DOMException.ABORT_ERR) {
+      this._showTrackNotification('[not available]');
 
-    return this._onError && this._onError(error, this._track);
+      return this._onError && this._onError(error, this._track);
+    }
   }
 
   _onLoadedData (e) {

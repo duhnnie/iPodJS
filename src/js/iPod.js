@@ -60,7 +60,7 @@ export class iPod extends BaseElement {
   }
 
   _onPlaybackError (error, track) {
-    if (this._skipOnError && error.code !== window.DOMException.ABORT_ERR) {
+    if (this._skipOnError && error) {
       this._timeoutRef = setTimeout(() => {
         window.clearTimeout(this._timeoutRef);
         this._onPlayEnd(track);
