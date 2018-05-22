@@ -31,7 +31,11 @@ export default class Playview extends BaseElement {
       this._audio.src = audio;
     }
 
-    this._audio.play().catch(this._onPlaybackError.bind(this));
+    if (this._audio.currentSrc) {
+      this._audio.play().catch(this._onPlaybackError.bind(this));
+    } else {
+      this._onPlaybackError(new window.DOMException('', 'NotSupportedError'));
+    }
   }
 
   pause () {
