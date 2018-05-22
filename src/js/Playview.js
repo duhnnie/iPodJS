@@ -31,7 +31,7 @@ export default class Playview extends BaseElement {
       this._audio.src = audio;
     }
 
-    if (this._audio.currentSrc) {
+    if (this._audio.src) {
       this._audio.play().catch(this._onPlaybackError.bind(this));
     } else {
       this._onPlaybackError(new window.DOMException('', 'NotSupportedError'));
@@ -42,7 +42,7 @@ export default class Playview extends BaseElement {
     this._audio.pause();
   }
 
-  setTrack (track, play) {
+  setTrack (track) {
     let info;
 
     if (this._track) {
@@ -79,10 +79,7 @@ export default class Playview extends BaseElement {
       this._setPlaybackTime(0, 0);
       this._showTrackNotification(!info.audio ? '[not available]' : '');
 
-      if (play) {
-        this._audio.src = info.audio || '';
-        this.play();
-      } else {
+      if (this._audio.currentSrc) {
         this.pause();
       }
     }
