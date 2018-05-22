@@ -136,6 +136,7 @@ export class iPod extends BaseElement {
   _setTrack (track, play) {
     window.clearTimeout(this._timeoutRef);
     this._playview.setTrack(track);
+
     if (play) {
       this._play();
     }

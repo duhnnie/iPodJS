@@ -62,6 +62,16 @@ export default class Track extends ListItem {
     };
   }
 
+  showPlayingIcon () {
+    super.showPlayingIcon();
+    this._parentPlaylist.showPlayingIcon();
+  }
+
+  hidePlayingIcon () {
+    super.hidePlayingIcon();
+    this._parentPlaylist.hidePlayingIcon();
+  }
+
   _createHTML () {
     if (!this._html) {
       super._createHTML();

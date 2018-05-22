@@ -45,7 +45,15 @@ export default class Playview extends BaseElement {
   setTrack (track, play) {
     let info;
 
+    if (this._track) {
+      this._track.hidePlayingIcon();
+    }
+
     this._track = track;
+
+    if (track) {
+      track.showPlayingIcon();
+    }
 
     if (track) {
       info = track.getInfo();

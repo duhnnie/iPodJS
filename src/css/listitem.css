@@ -3,6 +3,14 @@
   font-size: 14px;
 }
 
+.playlist.playing .link:after {
+  background-position: 0px -82px;
+}
+
+.playlist.playing .link:hover:after {
+  background-position: 0px -98px;
+}
+
 .link {
   position: relative;
   display: block;

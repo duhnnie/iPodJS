@@ -24,6 +24,14 @@ export default class ListItem extends BaseElement {
     }
   }
 
+  showPlayingIcon () {
+    this._html.classList.add(listItemStyle['playing']);
+  }
+
+  hidePlayingIcon () {
+    this._html.classList.remove(listItemStyle['playing']);
+  }
+
   _onClickHandler (e) {
     e.preventDefault();
 
