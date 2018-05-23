@@ -58,6 +58,13 @@
   white-space: nowrap;
 }
 
+.title,
+.subtitle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .title {
   font-weight: bold;
   line-height: 1em;
@@ -66,7 +73,7 @@
 .subtitle {
   font-weight: lighter;
   font-size: 0.75em;
-  line-height: 0.5em;
+  margin-top: 0.4em;
 }
 
 .link:hover,

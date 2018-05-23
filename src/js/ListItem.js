@@ -56,7 +56,7 @@ export default class ListItem extends BaseElement {
     if (!this._html) {
       const link = BaseElement.create('a');
       const title = BaseElement.create('div');
-      const subtitle = BaseElement.create('span');
+      const subtitle = BaseElement.create('div');
 
       super._createHTML();
 
