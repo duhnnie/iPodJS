@@ -10,7 +10,36 @@
         <script>
             let instance;
 
-            window.addEventListener('DOMContentLoaded', () => {
+            // This is a polyfill to allow a good demo in IE/Edge, since they not have a promise-like implementation on Audio object, 
+            // in production use some pollyfill package.
+            Audio.prototype.play =  (function () {
+                const originalFn = Audio.prototype.play;
+
+                return function () {
+                    let resp,
+                        error;
+
+                    try {
+                        resp = originalFn.apply(this, arguments);
+                    } catch (e) {
+                        error = true;
+                    }
+                    
+                    if (resp && resp.catch) {
+                        return resp;
+                    } else {
+                        return {
+                            catch: function (fn) {
+                                if (error) {
+                                    fn(error || {});    
+                                }
+                            }
+                        };
+                    }
+                };
+            }) ();
+
+            window.addEventListener('DOMContentLoaded', function () {
                 instance = new iPodJS.iPod({
                     skipTrackOnError: true,
                     timeBeforeSkip: 5000,
