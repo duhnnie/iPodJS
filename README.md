@@ -1,5 +1,7 @@
 # iPodJS
 
+![alt text](screenshots/ipodjs.jpg "iPodJS")
+
 A Javascript iPod, have fun with it!
 
 ## How to use it
