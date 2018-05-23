@@ -1,14 +1,28 @@
 {
-  "name": "ipod",
-  "version": "1.0.0",
+  "name": "iPodJS",
+  "version": "0.1.0",
   "description": "A javascript iPod player",
-  "main": "index.html",
+  "keywords":[
+    "media", 
+    "player",
+    "audio",
+    "web"
+  ],
+  "homepage": "https://github.com/duhnnie/iPodJS#readme",
+  "bugs": {
+    "url": "https://github.com/duhnnie/iPodJS/issues"
+  },
+  "main": "dist/ipod.js",
   "scripts": {
     "start": "cross-env WEBPACK_ENV=dev webpack-dev-server --open",
     "build": "cross-env WEBPACK_ENV=prod webpack",
     "test": "semistandard --fix"
   },
-  "author": "duhnnie",
+  "author": {
+    "author": "Daniel Canedo",
+    "email": "me@duhnnie.net",
+    "url": "http://duhnnie.net"
+  },
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
