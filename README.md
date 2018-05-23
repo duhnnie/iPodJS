@@ -4,21 +4,49 @@
 
 A Javascript iPod, have fun with it!
 
-## How to use it
+## Demo
+
+See the iPod in action here: http://demos.duhnnie.net/ipod/
+
+## Usage
+
+### Requirements
+
+Either for running the demo on your machine or generate the distributable files (for use iPodJS on your own project) you will need:
+
+  * A modern mobile/desktop web browser. iPodJS also runs on older browsers, but in some cases it will be necessary some polyfills (the ones that were excluded from the project in order to keep the code clean). More info in the [Compatibility](#compatibility) and [Known Issues](#known-issues) sections below.
+
+  * Node.JS and NPM must be installed on the machine that will build the demo (or the distributable files).
+
+### Installation
 
 1. Clone the repo.
 2. Change to the repo directory and run `npm install`.
-3. Use it:
-  a. To have a quick view of the iPod run `npm run start`, a browser will be open with an iPod on a HTML page.
-  b. To use the iPod in your project you need to build the distributable file, for that run `npm run build`, all necessary files will be output in the `dist` directory.
+
+### Running the development demo
+
+Once the repo is installed, inside the repo directory run `npm run start`. A browser will be open with an iPod on a HTML page.
+
+### Using iPodJS in another project
+
+To use the iPod in your project you will need to build the distributable file, for that, once the repo is installed run `npm run build`, all necessary files will be output in the `dist` directory.
+
+While iPodJS has a dependency on *lodash*, it is bundled only in the development demo (when you run `npm run start`). For production you must provide the library manually.
+
+There are some issues in some browsers due the lack of some browser ES6 implemented functions (like Array.from()). For more info about it read the [Compatibility](#compatibility) and [Known Issues](#known-issues) sections below.
   
 ## Compatibility
 
-iPod.js is compatible with most modern browsers (Google Chrome, Firefox, Opera, Safari). 
-For Microsoft IE11/Edge it is necessary to apply some polyfills to solve some issues:
-  * Edge doesn't have a promise-like implementation of the `Audio.play()` method. A dirty polyfill is being used for the demo using the `npm run start` command.
-  * IE11 has issues with `Array.from()` method, it needs to be polyfilled to make it work.
-  
-Any suggestion, ir idea of improvement just fork the repo and send the PR.
+Since iPodJS is built using Babel, it is compatible with modern browsers and older ones. However, to keep the project code clean, some browser-core function polyfills were not included on the distributable files. So, in production polyfills for some unimplemented browser functions must be applied (Babel).
 
-Happy listening!
+## Known issues
+
+For Microsoft IE11/Edge it is necessary to apply some polyfills to solve some issues:
+  * Edge doesn't have a promise-like implementation of the `Audio.play()` method. A dirty polyfill is being used *ONLY* for the demo using the `npm run start` command. In production use the polyfill must be applied manually or with some tool (Babel), since the distribuitable code doesn't include the browser-function polyfills.
+  * IE11 has issues with `Array.from()` method, it needs to be polyfilled to make the iPodJS work.
+
+## Become a contribuitor
+  
+Any suggestion, or idea of improvement just fork the repo and send the PR.
+
+**Happy listening!**
