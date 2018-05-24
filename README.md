@@ -34,6 +34,72 @@ To use the iPod in your project you will need to build the distributable file, f
 While iPodJS has a dependency on *lodash*, it is bundled only in the development demo (when you run `npm run start`). For production you must provide the library manually.
 
 There are some issues in some browsers due the lack of some browser ES6 implemented functions (like Array.from()). For more info about it read the [Compatibility](#compatibility) and [Known Issues](#known-issues) sections below.
+
+Usage Example:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/ipodjs.css"/>
+    <script src="js/ipod.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+
+        const ipod = new iPodJS.iPod({
+          skipTrackOnError: true,
+          timeBeforeSkip: 5000,
+          playlists: [
+            {
+              name: "Playlist #1",
+              tracks: [
+                {
+                  artist: "Autolux",
+                  title: "Change My Head",
+                  album: "PUSSY'S DEAD",
+                  artwork: "img/autolux.jpg",
+                  audio: "audio/change_my_head.mp3"
+                },
+                {
+                  artist: "Grouplove",
+                  title: "Borderlines and Aliens",
+                  album: "Spreading Rumors",
+                  artwork: "img/grouplove.jpg",
+                  audio: "audio/borderlines.mp3"
+                }
+              ]
+            },
+            {
+              name: "Playlist #2",
+              tracks: [
+                {
+                  artist: "NOFX",
+                  title: "Linoleum",
+                  album: "Punk in Drublic",
+                  artwork: "img/nofx.jpg",
+                  audio: "audio/linoleum.mp3"
+                },
+                {
+                  artist: "Radiohead",
+                  title: "Airbag",
+                  album: "OK Computer",
+                  artwork: "img/radiohead.jpg",
+                  audio: "audio/airbag.mp3"
+                }
+              ]
+            }
+          ]
+        });
+
+        document.body.appendChild(ipod.getHTML());
+      });
+    </script>
+    <title>My iPod</title>
+  </head>
+  <body></body>
+</html>
+```
   
 ## Compatibility
 
