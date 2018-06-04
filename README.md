@@ -108,7 +108,7 @@ Since iPodJS is built using Babel, it is compatible with modern browsers and old
 ## Known issues
 
 For Microsoft IE11/Edge it is necessary to apply some polyfills to solve some issues:
-  * Edge doesn't have a promise-like implementation of the `Audio.play()` method. A dirty polyfill is being used *ONLY* for the demo using the `npm run start` command. In production use the polyfill must be applied manually or with some tool (Babel), since the distribuitable code doesn't include the browser-function polyfills.
+  * Edge doesn't have a promise-like implementation of the `Audio.play()` method. A dirty polyfill is being used *ONLY* for the demo using the `npm run start` command. For production the polyfill must be applied manually or by using some tool (Babel), since the distribuitable code doesn't include the browser-function polyfills.
   * IE11 has issues with `Array.from()` method, it needs to be polyfilled to make the iPodJS work.
 
 ## Become a contribuitor
