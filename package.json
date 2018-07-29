@@ -2,8 +2,8 @@
   "name": "iPodJS",
   "version": "0.1.0",
   "description": "A javascript iPod player",
-  "keywords":[
-    "media", 
+  "keywords": [
+    "media",
     "player",
     "audio",
     "web"
