@@ -43,6 +43,7 @@ const basicConf = {
     ]
   },
   plugins: [
+    new webpack.BannerPlugin('iPodJS | (c) Duhnnie (Daniel Canedo) | http://duhnnie.net | https://github.com/duhnnie/iPodJS'),
     new ExtractTextPlugin('./ipodjs.css')
   ]
 };
