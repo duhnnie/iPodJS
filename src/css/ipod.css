@@ -58,84 +58,98 @@
   composes: control-link;
 }
 
+.menu-link img,
+.forward-link img,
+.backward-link img,
+.play-link img,
+.select-link img {
+  width: 100%;
+  height: 100%;
+}
+
 .menu-link {
   left: 37.53%;
   top: 56%;
+  width: 18.87%;
+  height: 3.529%;
 }
 
 .menu-link img {
   background-position: 0 0;
-  width: 84px;
-  height: 24px;
+  background-size: 443%;
 }
 
 .menu-link:hover img,
 .menu-link:focus img {
-  background-position: -194px 0;
+  background-position: -62% 0;
 }
 
 .backward-link {
   left: 19.55%;
   top: 68.23%;
+  width: 11.91%;
+  height: 4.559%
 }
 
 .backward-link img {
-  background-position: 0px -25px;
-  width: 53px;
-  height: 31px;
+  background-position: 0 -105%;
+  background-size: 710%;
 }
 
 .backward-link:hover img,
 .backward-link:focus img {
-  background-position: -194px -25px;
+  background-position: -55.72% -105%;
 }
 
 .forward-link {
   left: 67.19%;
   top: 70.59%;
+  width: 11.01%;
+  height: 3.97%;
 }
 
 .forward-link img {
-  background-position: -59px -28px;
-  width: 49px;
-  height: 27px;
+  background-position: -96.5% -98.5%;
+  background-size: 780%;
 }
 
 .forward-link:hover img,
 .forward-link:focus img {
-  background-position: -253px -28px;
+  background-position: -36.85% -98.5%;
 }
 
 .play-link {
   left: 39.77%;
   top: 84.85%;
+  width: 14.157%;
+  height: 4.559%;
 }
 
 .play-link img {
-  background-position: -115px -26px;
-  width: 63px;
-  height: 31px;
+  background-position: -83.45% -104.3%;
+  background-size: 586%;
 }
 
 .play-link:hover img,
 .play-link:focus img {
-  background-position: -309px -26px;
+  background-position: -20.54% -104.3%;
 }
 
 .select-link {
   top: 64.7%;
   left: 38.87%;
+  height: 12.795%;
+  width: 20%;
 }
 
 .select-link img {
-  background-position: -101px -57px;
-  height: 87px;
-  width: 89px;
+  background-position: 28% 87%;
+  background-size: 422%;
 }
 
 .select-link:hover img,
 .select-link:focus img {
-  background-position: -205px -69px; 
+  background-position: 72.5% 99%; 
 }
 
 .screen {
