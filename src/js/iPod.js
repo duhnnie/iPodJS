@@ -6,6 +6,8 @@ import Playview from './Playview';
 import ipodStyle from '../css/ipod.css';
 import pixelImg from '../img/pixel.gif';
 
+const RATIO = 0.65441;
+
 export class iPod extends BaseElement {
   static get SCREENS () {
     return {
@@ -40,13 +42,16 @@ export class iPod extends BaseElement {
     settings = _.merge({
       playlists: [],
       skipOnError: true,
-      timeBeforeSkip: 5000
+      timeBeforeSkip: 5000,
+      width: 445
     }, settings);
 
     this._playlists = new Set();
     this._playbackState = null;
     this._currentPlaylist = null;
     this._currentScreen = null;
+    this._width = settings.height ? null : settings.width;
+    this._height = settings.height;
     this._playview = new Playview({
       onEnded: this._onPlayEnd.bind(this),
       onError: this._onPlaybackError.bind(this)
@@ -97,6 +102,34 @@ export class iPod extends BaseElement {
 
   _onPlayEnd (track) {
     this.next();
+  }
+
+  setWidth (width) {
+    const height = width / RATIO;
+
+    this._width = width;
+    this._height = null;
+
+    if (this._html) {
+      this._html.style.width = `${width}px`;
+      this._html.style.height = `${height}px`;
+    }
+
+    return this;
+  }
+
+  setHeight (height) {
+    const width = height * RATIO;
+
+    this._width = null;
+    this._height = height;
+
+    if (this._html) {
+      this._html.style.width = `${width}px`;
+      this._html.style.height = `${height}px`;
+    }
+
+    return this;
   }
 
   back () {
@@ -290,6 +323,12 @@ export class iPod extends BaseElement {
 
       this.setPlaylists([...this._playlists]);
       this._gotoScreen(iPod.SCREENS.HOME);
+      
+      if (this._width) {
+        this.setWidth(this._width);
+      } else {
+        this.setHeight(this._height);
+      }
 
       this._addEventListeners();
     }
