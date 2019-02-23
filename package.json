@@ -16,7 +16,11 @@
   "scripts": {
     "start": "cross-env WEBPACK_ENV=dev webpack-dev-server --open",
     "build": "cross-env WEBPACK_ENV=prod webpack",
-    "test": "semistandard --fix"
+    "test": "semistandard --fix",
+    "postinstall": "echo \"postinstall xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\" >> postinstall.txt",
+    "prepublish": "echo \"prepublish xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\" >> prepublish.txt",
+    "prepare": "echo \"prepare xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\" >> prepare.txt",
+    "prepublishOnly": "echo \"prepublishOnly xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\" >> prepublishOnly.txt"
   },
   "author": {
     "author": "Daniel Canedo",
