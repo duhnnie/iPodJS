@@ -7,6 +7,8 @@ import ipodStyle from '../css/ipod.css';
 import pixelImg from '../img/pixel.gif';
 
 const RATIO = 0.65441;
+const SCREEN_BORDER_RATIO = 0.01348;
+const SCREEN_FONTSIZE_RATIO = 0.060674;
 
 export class iPod extends BaseElement {
   static get SCREENS () {
@@ -104,18 +106,26 @@ export class iPod extends BaseElement {
     this.next();
   }
 
+  _applySize (width, height) {
+    if (this._html) {
+      const screen = this._getFromDOM('screen');
+
+      this._html.style.width = `${width}px`;
+      this._html.style.height = `${height}px`;
+      screen.style.borderWidth = `${width * SCREEN_BORDER_RATIO}px`;
+      screen.style.fontSize = `${width * SCREEN_FONTSIZE_RATIO}px`;
+    }
+
+    return this;
+  }
+
   setWidth (width) {
     const height = width / RATIO;
 
     this._width = width;
     this._height = null;
 
-    if (this._html) {
-      this._html.style.width = `${width}px`;
-      this._html.style.height = `${height}px`;
-    }
-
-    return this;
+    return this._applySize(width, height);
   }
 
   setHeight (height) {
@@ -124,12 +134,7 @@ export class iPod extends BaseElement {
     this._width = null;
     this._height = height;
 
-    if (this._html) {
-      this._html.style.width = `${width}px`;
-      this._html.style.height = `${height}px`;
-    }
-
-    return this;
+    return this._applySize(width, height);
   }
 
   back () {

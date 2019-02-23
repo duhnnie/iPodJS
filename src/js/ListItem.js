@@ -55,6 +55,7 @@ export default class ListItem extends BaseElement {
   _createHTML () {
     if (!this._html) {
       const link = BaseElement.create('a');
+      const textContainer = BaseElement.create('div');
       const title = BaseElement.create('div');
       const subtitle = BaseElement.create('div');
 
@@ -66,8 +67,9 @@ export default class ListItem extends BaseElement {
       subtitle.classList.add(listItemStyle['subtitle']);
 
       this._addToDOM(link, null, 'link');
-      this._addToDOM(title, 'link', 'title');
-      this._addToDOM(subtitle, 'link', 'subtitle');
+      this._addToDOM(textContainer, 'link', 'textContainer');
+      this._addToDOM(title, 'textContainer', 'title');
+      this._addToDOM(subtitle, 'textContainer', 'subtitle');
 
       this._addEventListeners();
     }

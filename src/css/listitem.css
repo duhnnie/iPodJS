@@ -1,21 +1,27 @@
 .playlist {
   border-bottom: 1px solid #E2E2E2; 
-  font-size: 14px;
+  font-size: 0.5185em;
+}
+
+.link:after,
+.playlist.playing .link:after,
+.playlist.playing .link:hover:after {
+  background-size: 2060%;
 }
 
 .playlist.playing .link:after {
-  background-position: 0px -82px;
+  background-position: -0.4% 168.2%;
 }
 
 .playlist.playing .link:hover:after {
-  background-position: 0px -98px;
+  background-position: -0.4% 179.7%;
 }
 
 .link {
   position: relative;
   display: block;
   height: 20%;
-  padding: 7px 12px;
+  padding: .5em .857em;
   color: black;
   text-decoration: none;
   box-sizing: border-box;
@@ -44,12 +50,12 @@
 
 .link:after {
   content: '';
-  width: 17px;
-  height: 14px;
+  width: 1.214em;
+  height: 1em;
   right: 0;
-  margin-top: -7px;
-  margin-right: 5px;
-  background-position: 2px -128px;
+  margin-top: -.5em;
+  margin-right: .357em;
+  background-position: -.6% 200.7%;
 }
 
 .text-overflow {
