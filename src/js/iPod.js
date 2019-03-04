@@ -119,6 +119,10 @@ export class iPod extends BaseElement {
     return this;
   }
 
+  isPlaying () {
+    return this._playbackState === iPod.PLAYBACK_STATES.PLAYING;
+  }
+
   setWidth (width) {
     const height = width / RATIO;
 
