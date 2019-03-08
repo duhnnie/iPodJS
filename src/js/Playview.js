@@ -27,7 +27,7 @@ export default class Playview extends BaseElement {
   play () {
     const audio = this._track.getAudio();
 
-    if (this._audio.currentSrc !== audio) {
+    if (this._audio.src !== audio) {
       this._audio.src = audio;
     }
 
