@@ -141,6 +141,17 @@ export class iPod extends BaseElement {
     return this._applySize(width, height);
   }
 
+  getSize() {
+    const width = this._width;
+    const height = this._height;
+
+    if (width) {
+      return { width, height: width / RATIO };
+    } else {
+      return { widht: height * RATIO, height };
+    }
+  }
+
   back () {
     const parentScreen = this._currentScreen.parent;
 
