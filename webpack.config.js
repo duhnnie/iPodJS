@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const env = process.env.WEBPACK_ENV;
 
@@ -67,9 +66,6 @@ if (env === 'dev') {
     },
     devtool: 'source-map',
     plugins: [
-      new UglifyJSPlugin({
-        sourceMap: true
-      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       })
