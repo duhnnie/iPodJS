@@ -16,7 +16,8 @@
   "scripts": {
     "start": "cross-env WEBPACK_ENV=dev webpack-dev-server --open",
     "build": "cross-env WEBPACK_ENV=prod webpack",
-    "test": "semistandard --fix"
+    "test": "semistandard --fix",
+    "prepublishOnly": "npm run build"
   },
   "author": {
     "author": "Daniel Canedo",
