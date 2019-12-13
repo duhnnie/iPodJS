@@ -18,7 +18,6 @@ const basicConf = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         include: path.join(__dirname, 'src/js'),
         loader: 'babel-loader',
         options: {
