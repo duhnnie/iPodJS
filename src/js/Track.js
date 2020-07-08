@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BaseElement from './BaseElement';
 import ListItem from './ListItem';
 import Playlist from './Playlist';
@@ -7,7 +6,7 @@ export default class Track extends ListItem {
   constructor (settings) {
     super(settings);
 
-    settings = _.merge({
+    settings = {
       artist: '[unknown artist]',
       title: '[untitled]',
       album: '[unknown album]',
@@ -15,8 +14,9 @@ export default class Track extends ListItem {
       audio: '',
       index: null,
       rating: 0,
-      parentPlaylist: null
-    }, settings);
+      parentPlaylist: null,
+      ...settings,
+    };
 
     this._artist = settings.artist;
     this._title = settings.title;

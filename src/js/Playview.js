@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Utils from './Utils';
 import playviewStyles from '../css/playview.css';
@@ -7,11 +6,12 @@ export default class Playview extends BaseElement {
   constructor (settings) {
     super(settings);
 
-    settings = _.merge({
+    settings = {
       onEnded: null,
       onError: null,
-      track: null
-    }, settings);
+      track: null,
+      ...settings,
+    };
 
     this._audio = new window.Audio();
     this._onEnded = settings.onEnded;

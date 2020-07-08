@@ -1,11 +1,10 @@
-import _ from 'lodash';
 import uuid from 'uuid/v1';
 
 export default class BaseElement {
   static create (tag, cssClass = null, id = null) {
     const elem = document.createElement(tag);
 
-    cssClass = _.isArray(cssClass) ? cssClass : (cssClass && cssClass.split(' ')) || [];
+    cssClass = Array.isArray(cssClass) ? cssClass : (cssClass && cssClass.split(' ')) || [];
 
     if (id) {
       elem.setAttribute('id', id);
@@ -23,9 +22,10 @@ export default class BaseElement {
   }
 
   constructor (settings) {
-    settings = _.merge({
-      id: uuid()
-    }, settings);
+    settings = {
+      id: uuid(),
+      ...settings,
+    };
 
     this._elementTag = 'div';
     this._html = null;

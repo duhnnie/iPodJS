@@ -2,7 +2,7 @@
 
 ![alt text](screenshots/ipodjs.jpg "iPodJS")
 
-A Javascript iPod, have fun with it!
+A Javascript iPod with no dependencies, have fun with it!
 
 ## Demo
 
@@ -30,8 +30,6 @@ Once the repo is installed, inside the repo directory run `npm run start`. A bro
 ### Using iPodJS in another project
 
 To use the iPod in your project you will need to build the distributable file, for that, once the repo is installed run `npm run build`, all necessary files will be output in the `dist` directory.
-
-While iPodJS has a dependency on *lodash*, it is bundled only in the development demo (when you run `npm run start`). For production you must provide the library manually.
 
 There are some issues in some browsers due the lack of some browser ES6 implemented functions (like Array.from()). For more info about it read the [Compatibility](#compatibility) and [Known Issues](#known-issues) sections below.
 

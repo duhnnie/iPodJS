@@ -12,7 +12,7 @@ const basicConf = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '',
     library: 'iPodJS',
-    libraryTarget: 'var'
+    libraryTarget: 'umd'
   },
   module: {
     rules: [

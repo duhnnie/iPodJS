@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BaseElement from './BaseElement';
 import ListItem from './ListItem';
 import Track from './Track';
@@ -8,11 +7,12 @@ export default class Playlist extends ListItem {
   constructor (settings) {
     super(settings);
 
-    settings = _.merge({
+    settings = {
       name: '[untitled playlist]',
       tracks: [],
-      onSelectTrack: null
-    }, settings);
+      onSelectTrack: null,
+      ...settings,
+    };
 
     this._name = settings.name;
     this._tracks = new Set();
@@ -50,7 +50,7 @@ export default class Playlist extends ListItem {
   }
 
   setTracks (tracks) {
-    if (!_.isArray(tracks)) {
+    if (!Array.isArray(tracks)) {
       throw new Error('setTracks(): The parameter must be an array.');
     }
 

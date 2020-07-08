@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BaseElement from './BaseElement';
 import Playlist from './Playlist';
 import Utils from './Utils';
@@ -10,7 +9,7 @@ const RATIO = 0.65441;
 const SCREEN_BORDER_RATIO = 0.01348;
 const SCREEN_FONTSIZE_RATIO = 0.060674;
 
-export class iPod extends BaseElement {
+export default class iPod extends BaseElement {
   static get SCREENS () {
     return {
       HOME: {
@@ -41,12 +40,13 @@ export class iPod extends BaseElement {
   constructor (settings) {
     super(settings);
 
-    settings = _.merge({
+    settings = {
       playlists: [],
       skipOnError: true,
       timeBeforeSkip: 5000,
-      width: 445
-    }, settings);
+      width: 445,
+      ...settings,
+    };
 
     this._playlists = new Set();
     this._playbackState = null;
@@ -258,13 +258,13 @@ export class iPod extends BaseElement {
   }
 
   setPlaylists (playlists) {
-    if (!_.isArray(playlists)) {
+    if (!Array.isArray(playlists)) {
       throw new Error('setPlaylist(): The parameter must be an array.');
     }
 
     this.clearPlaylists();
 
-    _.forEach(playlists, this.addPlaylist.bind(this));
+    playlists.forEach(this.addPlaylist.bind(this));
   }
 
   _getRootClasses () {

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import BaseElement from './BaseElement';
 import listItemStyle from '../css/listitem.css';
 
@@ -6,9 +5,10 @@ export default class ListItem extends BaseElement {
   constructor (settings) {
     super(settings);
 
-    settings = _.merge({
-      onClick: null
-    }, settings);
+    settings = {
+      onClick: null,
+      ...settings,
+    };
 
     this._elementTag = 'li';
     this._onClick = null;
