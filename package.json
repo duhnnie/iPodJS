@@ -1,5 +1,5 @@
 {
-  "name": "iPodJS",
+  "name": "ipodjs",
   "version": "1.0.0",
   "description": "A javascript iPod player",
   "keywords": [
@@ -20,9 +20,14 @@
     "prepublishOnly": "npm run build"
   },
   "author": {
+    "name": "Daniel Canedo",
     "author": "Daniel Canedo",
     "email": "me@duhnnie.net",
     "url": "http://duhnnie.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/duhnnie/iPodJS.git"
   },
   "license": "ISC",
   "devDependencies": {
