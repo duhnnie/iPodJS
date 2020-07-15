@@ -4,8 +4,6 @@
         <meta charset="utf-8"/>
         <title>iPod.JS</title>
         <link rel="stylesheet" href="ipodjs.css"/>
-        <!-- Uncommnet following line to run the example with no webpack-server  -->
-        <!-- <script src='https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js'></script> -->
         <script src="ipod.js"></script>
         <script>
             let instance;
@@ -40,7 +38,7 @@
             }) ();
 
             window.addEventListener('DOMContentLoaded', function () {
-                instance = new iPodJS.iPod({
+                instance = iPodJS.create({
                     skipTrackOnError: true,
                     timeBeforeSkip: 5000,
                     playlists: [

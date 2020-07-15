@@ -1,11 +1,3 @@
-.overflow {
-  overflow: hidden;
-}
-
-.color-gray {
-  color: #5D5D5D;
-}
-
 .text-small {
   font-size: 0.444em;
   line-height: 1.7em;
@@ -36,7 +28,7 @@
 }
 
 .track-titles {
-  composes: overflow;
+  overflow: hidden;
   margin-left: .444em;
   height: 100%;
   font-weight: bold;
@@ -49,23 +41,25 @@
 }
 
 .track-titles-list-item {
-  composes: overflow;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.track-titles-list-item-big {
-  composes: track-titles-list-item;
+.track-titles-list-item.big {
   font-size: 0.59259em;
   margin: 0 0 0.4em;
 }
 
-.track-titles-list-item-small {
-  composes: track-titles-list-item text-small color-gray;
+.track-titles-list-item.small {
+  color: #5D5D5D;
+  font-size: 0.444em;
+  line-height: 1.7em;
 }
 
-.track-titles-list-item-index {
-  composes: track-titles-list-item text-small;
+.track-titles-list-item.index {
+  font-size: 0.444em;
+  line-height: 1.7em;
 }
 
 .progress-container {

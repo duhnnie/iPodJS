@@ -2,7 +2,6 @@ import BaseElement from './BaseElement';
 import Playlist from './Playlist';
 import Utils from './Utils';
 import Playview from './Playview';
-import ipodStyle from '../css/ipod.css';
 import pixelImg from '../img/pixel.gif';
 
 const RATIO = 0.65441;
@@ -79,15 +78,15 @@ export default class iPod extends BaseElement {
     this._playbackState = state;
 
     if (this._html) {
-      this._html.classList.remove(ipodStyle['playing']);
-      this._html.classList.remove(ipodStyle['paused']);
+      this._html.classList.remove('playing');
+      this._html.classList.remove('paused');
 
       switch (state) {
         case iPod.PLAYBACK_STATES.PLAYING:
-          this._html.classList.add(ipodStyle['playing']);
+          this._html.classList.add('playing');
           break;
         case iPod.PLAYBACK_STATES.PAUSED:
-          this._html.classList.add(ipodStyle['paused']);
+          this._html.classList.add('paused');
           break;
       }
     }
@@ -268,7 +267,7 @@ export default class iPod extends BaseElement {
   }
 
   _getRootClasses () {
-    return [ipodStyle['ipodjs']];
+    return ['ipodjs'];
   }
 
   _addEventListeners () {
@@ -311,18 +310,18 @@ export default class iPod extends BaseElement {
 
   _createHTML () {
     if (!this._html) {
-      const screen = BaseElement.create('div', ipodStyle['screen']);
-      const topBar = BaseElement.create('div', ipodStyle['top-bar']);
-      const container = BaseElement.create('div', ipodStyle['container']);
-      const playlistPanel = BaseElement.create('ul', [ipodStyle['panel'], ipodStyle['list']]);
-      const tracklistPanel = BaseElement.create('ul', [ipodStyle['panel'], ipodStyle['list']]);
-      const playingPanel = BaseElement.create('div', ipodStyle['panel']);
+      const screen = BaseElement.create('div', 'screen');
+      const topBar = BaseElement.create('div', 'top-bar');
+      const container = BaseElement.create('div', 'screen-container');
+      const playlistPanel = BaseElement.create('ul', ['panel', 'list']);
+      const tracklistPanel = BaseElement.create('ul', ['panel', 'list']);
+      const playingPanel = BaseElement.create('div', 'panel');
 
       super._createHTML();
 
       this._getControlsHTMLDef().forEach((def) => {
         const img = BaseElement.create('img');
-        const link = BaseElement.create('a', ipodStyle[def.ref]);
+        const link = BaseElement.create('a', [def.ref, 'control-link']);
 
         // TODO: use images as module
         img.src = pixelImg;

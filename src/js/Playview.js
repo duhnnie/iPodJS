@@ -1,6 +1,5 @@
 import BaseElement from './BaseElement';
 import Utils from './Utils';
-import playviewStyles from '../css/playview.css';
 
 export default class Playview extends BaseElement {
   constructor (settings) {
@@ -133,23 +132,23 @@ export default class Playview extends BaseElement {
     if (!this._html) {
       super._createHTML();
 
-      this._addToDOM(BaseElement.create('div', playviewStyles['container']), null, 'trackInfoContainer');
-      this._addToDOM(BaseElement.create('img', playviewStyles['artwork']), 'trackInfoContainer', 'artwork');
-      this._addToDOM(BaseElement.create('div', playviewStyles['track-titles']), 'trackInfoContainer', 'trackTitles');
-      this._addToDOM(BaseElement.create('ul', playviewStyles['track-titles-list']), 'trackTitles', 'trackTitlesList');
-      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-big']), 'trackTitlesList', 'title');
-      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-small']), 'trackTitlesList', 'artist');
-      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-small']), 'trackTitlesList', 'album');
-      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item']), 'trackTitlesList', 'rating');
-      this._addToDOM(BaseElement.create('li', playviewStyles['track-titles-list-item-index']), 'trackTitlesList', 'index');
+      this._addToDOM(BaseElement.create('div', 'container'), null, 'trackInfoContainer');
+      this._addToDOM(BaseElement.create('img', 'artwork'), 'trackInfoContainer', 'artwork');
+      this._addToDOM(BaseElement.create('div', 'track-titles'), 'trackInfoContainer', 'trackTitles');
+      this._addToDOM(BaseElement.create('ul', 'track-titles-list'), 'trackTitles', 'trackTitlesList');
+      this._addToDOM(BaseElement.create('li', ['track-titles-list-item', 'big']), 'trackTitlesList', 'title');
+      this._addToDOM(BaseElement.create('li', ['track-titles-list-item', 'small']), 'trackTitlesList', 'artist');
+      this._addToDOM(BaseElement.create('li', ['track-titles-list-item', 'small']), 'trackTitlesList', 'album');
+      this._addToDOM(BaseElement.create('li', 'track-titles-list-item'), 'trackTitlesList', 'rating');
+      this._addToDOM(BaseElement.create('li', ['track-titles-list-item', 'index']), 'trackTitlesList', 'index');
 
       this._getFromDOM('artwork').setAttribute('img', './img/pixel.gif');
 
-      this._addToDOM(BaseElement.create('div', playviewStyles['timebox']), null, 'timebox');
+      this._addToDOM(BaseElement.create('div', 'timebox'), null, 'timebox');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'elapsedTime');
-      this._addToDOM(BaseElement.create('div', playviewStyles['progress-container']), 'timebox', 'progressBarContainer');
+      this._addToDOM(BaseElement.create('div', 'progress-container'), 'timebox', 'progressBarContainer');
       this._addToDOM(BaseElement.createText(''), 'progressBarContainer', 'trackNotification');
-      this._addToDOM(BaseElement.create('div', playviewStyles['progress-bar']), 'progressBarContainer', 'progressBar');
+      this._addToDOM(BaseElement.create('div', 'progress-bar'), 'progressBarContainer', 'progressBar');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'remainingTime');
 
       this.setTrack(this._track);

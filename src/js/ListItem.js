@@ -1,5 +1,4 @@
 import BaseElement from './BaseElement';
-import listItemStyle from '../css/listitem.css';
 
 export default class ListItem extends BaseElement {
   constructor (settings) {
@@ -25,11 +24,11 @@ export default class ListItem extends BaseElement {
   }
 
   showPlayingIcon () {
-    this._html.classList.add(listItemStyle['playing']);
+    this._html.classList.add('playing');
   }
 
   hidePlayingIcon () {
-    this._html.classList.remove(listItemStyle['playing']);
+    this._html.classList.remove('playing');
   }
 
   _onClickHandler (e) {
@@ -49,7 +48,7 @@ export default class ListItem extends BaseElement {
   }
 
   _getRootClasses () {
-    return [listItemStyle['playlist']];
+    return ['playlist'];
   }
 
   _createHTML () {
@@ -62,9 +61,9 @@ export default class ListItem extends BaseElement {
       super._createHTML();
 
       link.setAttribute('href', '#');
-      link.classList.add(listItemStyle['link']);
-      title.classList.add(listItemStyle['title']);
-      subtitle.classList.add(listItemStyle['subtitle']);
+      link.classList.add('link');
+      title.classList.add('title');
+      subtitle.classList.add('subtitle');
 
       this._addToDOM(link, null, 'link');
       this._addToDOM(textContainer, 'link', 'textContainer');

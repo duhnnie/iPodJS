@@ -1,7 +1,6 @@
 import BaseElement from './BaseElement';
 import ListItem from './ListItem';
 import Track from './Track';
-import playlistStyle from '../css/playlist-item.css';
 
 export default class Playlist extends ListItem {
   constructor (settings) {
@@ -75,7 +74,7 @@ export default class Playlist extends ListItem {
     if (!this._html) {
       super._createHTML();
 
-      this._getFromDOM('link').classList.add(playlistStyle['item']);
+      this._getFromDOM('link').classList.add('item');
 
       this._addToDOM(BaseElement.createText(this._name), 'title');
       this._addToDOM(BaseElement.createText(`${this._tracks.size} Songs`), 'subtitle');

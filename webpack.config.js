@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const env = process.env.WEBPACK_ENV;
 
 const basicConf = {
   mode: env === 'dev' ? 'development' : 'production',
-  entry: './src/js/iPod.js',
+  entry: './src/js/index.js',
   output: {
     filename: 'ipod.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,16 +19,18 @@ const basicConf = {
     rules: [
       {
         test: /\.js$/,
-        include: path.join(__dirname, 'src/js'),
+        // include: path.join(__dirname, 'src/js'),
+        exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          presets: ['env']
-        }
       },
       {
         test: /\.css$/,
         include: path.join(__dirname, 'src/css'),
-        use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+        // use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+        use: [
+          MiniCssExtractPlugin.loader, //'style-loader', 
+          'css-loader'
+        ],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
@@ -42,7 +45,10 @@ const basicConf = {
   },
   plugins: [
     new webpack.BannerPlugin('iPodJS | (c) Duhnnie (Daniel Canedo) | http://duhnnie.net | https://github.com/duhnnie/iPodJS'),
-    new ExtractTextPlugin('./ipodjs.css')
+    // new ExtractTextPlugin('./ipodjs.css')
+    new MiniCssExtractPlugin({
+      filename: 'ipodjs.css',
+    }),
   ]
 };
 
@@ -60,9 +66,6 @@ if (env === 'dev') {
   };
 } else {
   specificConf = {
-    externals: {
-      lodash: '_'
-    },
     devtool: 'source-map',
     plugins: [
       new webpack.DefinePlugin({
