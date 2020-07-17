@@ -24,19 +24,10 @@ const basicConf = {
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/,
-        include: path.join(__dirname, 'src/css'),
-        // use: ExtractTextPlugin.extract('css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
-        use: [
-          MiniCssExtractPlugin.loader, //'style-loader', 
-          'css-loader'
-        ],
-      },
-      {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/sass'),
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader, // 'style-loader',
           'css-loader',
           'sass-loader',
         ]
@@ -55,7 +46,6 @@ const basicConf = {
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.BannerPlugin('iPodJS | (c) Duhnnie (Daniel Canedo) | http://duhnnie.net | https://github.com/duhnnie/iPodJS'),
-    // new ExtractTextPlugin('./ipodjs.css')
     new MiniCssExtractPlugin({
       filename: 'ipodjs.css',
     }),

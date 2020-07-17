@@ -41,6 +41,10 @@ export default class Playview extends BaseElement {
     this._audio.pause();
   }
 
+  _getRootClasses () {
+    return ['playview'];
+  }
+
   setTrack (track) {
     let info;
 
