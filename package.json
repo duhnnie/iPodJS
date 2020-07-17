@@ -14,8 +14,9 @@
   },
   "main": "dist/ipod.js",
   "scripts": {
-    "start": "cross-env WEBPACK_ENV=dev webpack-dev-server",
-    "build": "cross-env WEBPACK_ENV=prod webpack",
+    "start": "webpack-dev-server --env.NODE_ENV=development",
+    "build": "npm run build:lib",
+    "build:lib": "webpack --env.NODE_ENV=production",
     "test": "semistandard --fix",
     "prepublishOnly": "npm run build"
   },
