@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const env = process.env.WEBPACK_ENV;
 
 const basicConf = {
@@ -33,8 +33,17 @@ const basicConf = {
         ],
       },
       {
+        test: /\.scss$/,
+        include: path.resolve(__dirname, 'src/sass'),
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ]
+      },
+      {
         test: /\.(png|jp(e*)g|svg|gif)$/,
-        loader: 'url-loader',
+        loader: 'file-loader',
         include: path.join(__dirname, 'src/img'),
         options: {
           limit: 8000,
@@ -44,6 +53,7 @@ const basicConf = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.BannerPlugin('iPodJS | (c) Duhnnie (Daniel Canedo) | http://duhnnie.net | https://github.com/duhnnie/iPodJS'),
     // new ExtractTextPlugin('./ipodjs.css')
     new MiniCssExtractPlugin({

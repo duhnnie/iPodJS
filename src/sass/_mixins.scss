@@ -1,0 +1,17 @@
+@mixin iPodJSImg {
+  // TODO: Remove next rule when Firefox supports image-set()
+  background-size: contain;
+  background-image: url('../img/ipodjs.png');
+  background-image: -webkit-image-set(
+    url('../img/ipodjs.png') 1x,
+    url('../img/ipodjs@1.5x.png') 1.5x,
+    url('../img/ipodjs@2x.png') 2x,
+    url('../img/ipodjs@2.5x.png') 2.5x
+  );
+  background-image: image-set(
+    url('../img/ipodjs.png') 1x,
+    url('../img/ipodjs@1.5x.png') 1.5x,
+    url('../img/ipodjs@2x.png') 2x,
+    url('../img/ipodjs@2.5x.png') 2.5x
+  );
+}

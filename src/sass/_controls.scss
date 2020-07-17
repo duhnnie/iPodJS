@@ -1,0 +1,32 @@
+.ipodjs {}
+
+.menu-link,
+.forward-link,
+.backward-link,
+.play-link,
+.select-link {
+  position: absolute;
+  font-size: 0;
+}
+
+.menu-link img,
+.forward-link img,
+.backward-link img,
+.play-link img,
+.select-link img {
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/ipodjs-controls.png');
+  background-image: -webkit-image-set(
+    url('../img/ipodjs-controls.png') 1x,
+    url('../img/ipodjs-controls@1.5x.png') 1.5x,
+    url('../img/ipodjs-controls@2x.png') 2x,
+    url('../img/ipodjs-controls@2.5x.png') 2.5x
+  );
+  background-image: image-set(
+    url('../img/ipodjs-controls.png') 1x,
+    url('../img/ipodjs-controls@1.5x.png') 1.5x,
+    url('../img/ipodjs-controls@2x.png') 2x,
+    url('../img/ipodjs-controls@2.5x.png') 2.5x
+  );
+}

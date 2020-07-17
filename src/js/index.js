@@ -1,5 +1,6 @@
 import iPod from './iPod';
-import '../css/ipod.css';
+// import '../css/ipod.css';
+import '../sass/index.scss';
 import '../css/listitem.css';
 import '../css/playlist-item.css';
 import '../css/playview.css';

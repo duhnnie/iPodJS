@@ -321,7 +321,7 @@ export default class iPod extends BaseElement {
 
       this._getControlsHTMLDef().forEach((def) => {
         const img = BaseElement.create('img');
-        const link = BaseElement.create('a', [def.ref, 'control-link']);
+        const link = BaseElement.create('a', def.ref);
 
         // TODO: use images as module
         img.src = pixelImg;
