@@ -3,6 +3,7 @@
   width: 445px;
   height: 680px;
   text-align: left;
+  color: black;
   @include imgiPod();
 
   &.playing .top-bar:after,

@@ -52,5 +52,12 @@
   },
   "dependencies": {
     "uuid": "^3.2.1"
-  }
+  },
+  "files": [
+    "dist/ipod.js",
+    "dist/ipod.js.map",
+    "dist/ipodjs.css",
+    "dist/ipodjs.css.map",
+    "dist/img/*"
+  ]
 }

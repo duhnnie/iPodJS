@@ -45,7 +45,7 @@ Usage Example:
     <script>
       document.addEventListener('DOMContentLoaded', () => {
 
-        const ipod = new iPodJS.iPod({
+        const ipod = iPodJS.create({
           skipTrackOnError: true,
           timeBeforeSkip: 5000,
           playlists: [
@@ -107,6 +107,38 @@ Since iPodJS is built using Babel, it is compatible with modern browsers and old
 
 For Microsoft IE11/Edge it is necessary to apply some polyfills to solve some issues:
   * Edge doesn't have a promise-like implementation of the `Audio.play()` method. A dirty polyfill is being used *ONLY* for the demo using the `npm run start` command. For production the polyfill must be applied manually or by using some tool (Babel), since the distribuitable code doesn't include the browser-function polyfills.
+
+  ```js 
+  // This is a polyfill to allow a good demo in IE/non-Chromium Edge, since they not have a promise-like implementation
+  //on Audio object, in production use some pollyfill package. Different versions for this polyfill can be used.
+  Audio.prototype.play =  (function () {
+      const originalFn = Audio.prototype.play;
+
+      return function () {
+          let resp,
+              error;
+
+          try {
+              resp = originalFn.apply(this, arguments);
+          } catch (e) {
+              error = true;
+          }
+          
+          if (resp && resp.catch) {
+              return resp;
+          } else {
+              return {
+                  catch: function (fn) {
+                      if (error) {
+                          fn(error || {});    
+                      }
+                  }
+              };
+          }
+      };
+  }) ();
+  ```
+
   * IE11 has issues with `Array.from()` method, it needs to be polyfilled to make the iPodJS work.
 
 ## Become a contribuitor
