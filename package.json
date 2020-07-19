@@ -1,6 +1,6 @@
 {
   "name": "ipodjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A javascript iPod player",
   "keywords": [
     "media",
@@ -15,10 +15,9 @@
   "main": "dist/ipod.js",
   "scripts": {
     "start": "webpack-dev-server --env.NODE_ENV=development",
-    "build": "npm run build:lib",
-    "build:lib": "webpack --env.NODE_ENV=production",
+    "build": "webpack --env.NODE_ENV=production",
     "test": "semistandard --fix",
-    "prepublishOnly": "npm run build"
+    "prepack": "npm run build"
   },
   "author": {
     "name": "Daniel Canedo",
