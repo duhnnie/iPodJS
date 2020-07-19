@@ -50,9 +50,6 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.2"
   },
-  "dependencies": {
-    "uuid": "^3.2.1"
-  },
   "files": [
     "dist/ipod.js",
     "dist/ipod.js.map",

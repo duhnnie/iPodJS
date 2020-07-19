@@ -1,5 +1,8 @@
-import uuid from 'uuid/v1';
+function getUid () {
+  const d = new Date();
 
+  return d.getTime() + '' + Math.round((Math.random() * 1000000));
+}
 export default class BaseElement {
   static create (tag, cssClass = null, id = null) {
     const elem = document.createElement(tag);
@@ -23,7 +26,7 @@ export default class BaseElement {
 
   constructor (settings) {
     settings = {
-      id: uuid(),
+      id: getUid(),
       ...settings,
     };
 
