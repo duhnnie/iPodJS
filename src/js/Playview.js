@@ -1,5 +1,6 @@
 import BaseElement from './BaseElement';
 import Utils from './Utils';
+import pixelImg from '../img/pixel.gif';
 
 export default class Playview extends BaseElement {
   constructor (settings) {
@@ -146,7 +147,7 @@ export default class Playview extends BaseElement {
       this._addToDOM(BaseElement.create('li', 'track-titles-list-item'), 'trackTitlesList', 'rating');
       this._addToDOM(BaseElement.create('li', ['track-titles-list-item', 'index']), 'trackTitlesList', 'index');
 
-      this._getFromDOM('artwork').setAttribute('img', './img/pixel.gif');
+      this._getFromDOM('artwork').setAttribute('src', pixelImg);
 
       this._addToDOM(BaseElement.create('div', 'timebox'), null, 'timebox');
       this._addToDOM(BaseElement.create('span'), 'timebox', 'elapsedTime');

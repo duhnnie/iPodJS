@@ -38,7 +38,7 @@ module.exports = (env) => {
         },
         {
           test: /\.(png|jp(e*)g|svg|gif)$/,
-          loader: 'file-loader',
+          loader: 'url-loader',
           include: path.join(__dirname, 'src/img'),
           options: {
             limit: 8000,
