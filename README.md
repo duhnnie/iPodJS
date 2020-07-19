@@ -20,16 +20,67 @@ Either for running the demo on your machine or generate the distributable files 
 
 ### Installation
 
-1. Clone the repo.
-2. Change to the repo directory and run `npm install`.
+```console
+$ npm install --save ipodjs
+```
 
-### Running the development demo
+### Using iPodJS as a module:
 
-Once the repo is installed, inside the repo directory run `npm run start`. A browser will be open with an iPod on a HTML page.
+You can use iPodJS as an ES6, CommonJS or AMD module.
 
-### Using iPodJS in another project
+```js
+import iPodJS from 'ipodjs'; // or: const iPodJS = require('ipodjs');
+import 'ipodjs/dist/ipodjs.css';
 
-To use the iPod in your project you will need to build the distributable file, for that, once the repo is installed run `npm run build`, all necessary files will be output in the `dist` directory.
+const ipod = iPodJS.create({
+  skipTrackOnError: true,
+  timeBeforeSkip: 5000,
+  playlists: [
+    {
+      name: "Playlist #1",
+      tracks: [
+        {
+          artist: "Autolux",
+          title: "Change My Head",
+          album: "PUSSY'S DEAD",
+          artwork: "img/autolux.jpg",
+          audio: "audio/change_my_head.mp3"
+        },
+        {
+          artist: "Grouplove",
+          title: "Borderlines and Aliens",
+          album: "Spreading Rumors",
+          artwork: "img/grouplove.jpg",
+          audio: "audio/borderlines.mp3"
+        }
+      ]
+    },
+    {
+      name: "Playlist #2",
+      tracks: [
+        {
+          artist: "NOFX",
+          title: "Linoleum",
+          album: "Punk in Drublic",
+          artwork: "img/nofx.jpg",
+          audio: "audio/linoleum.mp3"
+        },
+        {
+          artist: "Radiohead",
+          title: "Airbag",
+          album: "OK Computer",
+          artwork: "img/radiohead.jpg",
+          audio: "audio/airbag.mp3"
+        }
+      ]
+    }
+  ]
+});
+
+document.body.appendChild(ipod.getHTML());
+```
+
+### Using iPodJS directly in HTML
 
 There are some issues in some browsers due the lack of some browser ES6 implemented functions (like Array.from()). For more info about it read the [Compatibility](#compatibility) and [Known Issues](#known-issues) sections below.
 
@@ -140,9 +191,5 @@ For Microsoft IE11/Edge it is necessary to apply some polyfills to solve some is
   ```
 
   * IE11 has issues with `Array.from()` method, it needs to be polyfilled to make the iPodJS work.
-
-## Become a contribuitor
-  
-Any suggestion, or idea of improvement just fork the repo and send the PR.
 
 **Happy listening!**
