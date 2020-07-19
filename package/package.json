@@ -1,13 +1,12 @@
 {
   "name": "ipodjs",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "A javascript iPod player",
   "keywords": [
     "media",
     "player",
     "audio",
-    "web",
-    "ipod"
+    "web"
   ],
   "homepage": "https://github.com/duhnnie/iPodJS#readme",
   "bugs": {
